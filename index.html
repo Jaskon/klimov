@@ -9,376 +9,134 @@
     <script type="text/javascript" src="libs/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="libs/bootstrap.bundle.min.js"></script>
 
-    <!-- Our scripts -->
-    <script type="text/javascript" src="Physical.js"></script>
-
-    <style>
-        body {
-            font: 13px/20px "Lucida Grande", Tahoma, Verdana, sans-serif;
-            color: #404040;
-            background: #93cedf;
-        }
-        .container {
-            margin: 80px auto;
-            width: 400px;
-            text-align: center;
-        }
-        .container > .dropdown {
-            margin: 0 20px;
-            vertical-align: top;
-        }
-        .dropdown {
-            display: inherit;
-            position: relative;
-            overflow: hidden;
-            height: 28px;
-            width: 350px;
-            background: #f2f2f2;
-            border: 1px solid;
-            border-color: white #f7f7f7 whitesmoke;
-            border-radius: 3px;
-            background-image: -webkit-linear-gradient(top, transparent, rgba(0, 0, 0, 0.06));
-            background-image: -moz-linear-gradient(top, transparent, rgba(0, 0, 0, 0.06));
-            background-image: -o-linear-gradient(top, transparent, rgba(0, 0, 0, 0.06));
-            background-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.06));
-            -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
-            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
-        }
-        .dropdown:before, .dropdown:after {
-            content: '';
-            position: absolute;
-            z-index: 2;
-            top: 9px;
-            right: 10px;
-            width: 0;
-            height: 0;
-            border: 4px dashed;
-            border-color: #888888 transparent;
-            pointer-events: none;
-        }
-        .dropdown:before {
-            border-bottom-style: solid;
-            border-top: none;
-        }
-        .dropdown:after {
-            margin-top: 7px;
-            border-top-style: solid;
-            border-bottom: none;
-        }
-        .dropdown-select {
-            position: relative;
-            width: 130%;
-            margin: 0;
-            padding: 6px 8px 6px 10px;
-            height: 28px;
-            line-height: 14px;
-            font-size: 12px;
-            color: #62717a;
-            text-shadow: 0 1px white;
-            background: #f2f2f2; /* Fallback for IE 8 */
-            background: rgba(0, 0, 0, 0) !important; /* "transparent" doesn't work with Opera */
-            border: 0;
-            border-radius: 0;
-            -webkit-appearance: none;
-        }
-        .dropdown-select:focus {
-            z-index: 3;
-            width: 100%;
-            color: #394349;
-            outline: 2px solid #49aff2;
-            outline: 2px solid -webkit-focus-ring-color;
-            outline-offset: -2px;
-        }
-        .dropdown-select > option {
-            margin: 3px;
-            padding: 6px 8px;
-            text-shadow: none;
-            background: #f2f2f2;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-        .lt-ie9 .dropdown {
-            z-index: 1;
-        }
-        .lt-ie9 .dropdown-select {
-            z-index: -1;
-        }
-        .lt-ie9 .dropdown-select:focus {
-            z-index: 90;
-        }
-        @-moz-document url-prefix() {
-            .dropdown-select {
-                padding-left: 6px;
-            }
-        }
-        .dropdown-dark {
-            background: #444;
-            border-color: #111111 #0a0a0a black;
-            background-image: -webkit-linear-gradient(top, transparent, rgba(0, 0, 0, 0.4));
-            background-image: -moz-linear-gradient(top, transparent, rgba(0, 0, 0, 0.4));
-            background-image: -o-linear-gradient(top, transparent, rgba(0, 0, 0, 0.4));
-            background-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.4));
-            -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.1), 0 1px 1px rgba(0, 0, 0, 0.2);
-            box-shadow: inset 0 1px rgba(255, 255, 255, 0.1), 0 1px 1px rgba(0, 0, 0, 0.2);
-        }
-        .dropdown-dark:before {
-            border-bottom-color: #aaa;
-        }
-        .dropdown-dark:after {
-            border-top-color: #aaa;
-        }
-        .dropdown-dark .dropdown-select {
-            color: #aaa;
-            text-shadow: 0 1px black;
-            background: #444;
-        }
-        .dropdown-dark .dropdown-select:focus {
-            color: #ccc;
-        }
-        .dropdown-dark .dropdown-select > option {
-            background: #444;
-            text-shadow: 0 1px rgba(0, 0, 0, 0.4);
-        }
-        .ere{ 
-            position: absolute;
-            left: 20%;
-            margin-left: -500px;
-            width: 1250px;  height: 940px; /* Размеры */
-            outline: 2px solid #000; /* Чёрная рамка */
-            border-radius: 10px; /* Радиус скругления */
-            position: relative;
-        }
-        .erl{ 
-            position: absolute;
-            left: 20%;
-            margin-left: -500px;
-            width: 1250px;  height: 270px; /* Размеры */
-            outline: 2px solid #000; /* Чёрная рамка */
-            border-radius: 10px; /* Радиус скругления */
-            position: relative;
-        }
-        .er{ 
-            position: absolute;
-            left: 20%;
-            margin-left: -500px;
-            width: 1250px;  height: 570px; /* Размеры */
-            outline: 2px solid #000; /* Чёрная рамка */
-            border-radius: 10px; /* Радиус скругления */
-            position: relative;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
 
 
 
-    <FORM NAME="Test2">
-        <section class="container">
-            <H1>Алюминиевые конденсаторы</H1>
-            <div class="ere">
-                <p>Расчет физического коэффициента интенсивности отказов Physical</p>
-                <p>Введите количество и длительности фаз</p>
-                <center><input type="button" onclick="tannual.getVoice()" class="TAnnual" value="Введите значения"></center>
-                <center>
-                    <p>Коэффициент размещения Placement</p>
-                    <div class="dropdown dropdown-dark">
-                        <SELECT id="Items" NAME="Item" class="dropdown-select">
-                            <OPTION VALUE=1 SELECTED>Выберите</OPTION>
-                            <OPTION VALUE=2>Цифровая неинтерфейсная функция</OPTION>
-                            <OPTION VALUE=3>Цифровая интерфейсная функция</OPTION>
-                            <OPTION VALUE=4>Аналоговая низкоуровневая неинтерфейсная функция</OPTION>
-                            <OPTION VALUE=5>Аналоговая низкоуровневая интерфейсная функция</OPTION>
-                            <OPTION VALUE=6>Аналоговая неинтерфейсная функция питания</OPTION>
-                            <OPTION VALUE=7>Аналоговая силовая интерфейсная функция</OPTION>
-                        </SELECT>
+    <div class="mt-4 mb-4 container">
+
+        <!-- Phase count -->
+        <div class="mb-4 phase-count-block">
+            <div class="form-group">
+                <label>Phase count</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <button class="btn btn-outline-danger" type="button" data-decrement-input="phase-count-input">-</button>
                     </div>
-                    <p>Выберите алюминиевый конденсатор</p>
-                    <div class="dropdown dropdown-dark">
-                        <SELECT id="Items" NAME="Item" class="dropdown-select">
-                            <OPTION VALUE=1 SELECTED>Выберите</OPTION>
-                            <OPTION VALUE=2>Алюминиевый жидкий электролитный конденсатор</OPTION>
-                            <OPTION VALUE=3>Алюминиевый твердый электролитный конденсатор</OPTION>
-                        </SELECT>
+                    <input id="phase-count-input" class="form-control phase-count-input one-field-input" type="text" value="1" min="1" max="5" step="1">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-success" type="button" data-increment-input="phase-count-input">+</button>
                     </div>
-                    <p>Vapplied - напряжение, приложенное к компоненту во время фазы (V)</p>
-                    <p><input id="V_APPLIED" type="text" name="valueInput" value="0.5" size="20"></p>
-                    <p>Vrated - максимальное напряжение, приложенное к компоненту, указанному поставщиком (V)</p>
-                    <p><input id="V_RATED" type="text" name="valueInput" value="0.5" size="20"></p>
-                    <p>Tboard-ambient - средняя температура платы во время фазы (°C)</p>
-                    <p><input id="BOARD_AMBIENT" type="text" name="valueInput" value="0.5" size="20"></p>
-                    <p>Ocycle - продолжительность цикла (часы)</p>
-                    <p><input id="OCY" type="text" name="valueInput" value="0.5" size="20"></p>     
-                    <p>Tcycling - Амплитуда изменения, связанная с фазой циклирования (°C)</p>
-                    <p><input id="CYCLING" type="text" name="valueInput" value="0.5" size="20"></p>
-                    <p>Tmax-cycling - Максимальная температура, достигнутая в течение цикла; максимальная температура платы во время фазы цикла (°C)</p>
-                    <p><input id="MAX_CYCLING" type="text" name="valueInput" value="0.5" size="20"></p>
-                    <p>GRMS - стресс, связанный с каждой фазой случайного колебания</p>
-                    <p><input id="G_RMS" type="text" name="valueInput" value="0.5" size="20"></p>           
-                    <p>Nannual-cy - Количество циклов, связанных с каждой фазой цикла в течение года (циклов) </p>
-                    <p><input id="ANNUAL_CY" type="text" name="valueInput" value="0.5" size="20"></p>   
-                    <p>Коэффициент влияния среды использования Application</p>
-                    <div class="dropdown dropdown-dark">
-                        <SELECT id="Items" NAME="Item" class="dropdown-select">
-                            <OPTION VALUE=1 SELECTED>Выберите уровни критериев</OPTION>
-                            <OPTION VALUE=2>Тип пользователя в рассматриваемой фазе</OPTION>
-                            <OPTION VALUE=3>Уровень квалификации пользователя на рассматриваемом этапе</OPTION>
-                            <OPTION VALUE=4>Мобильность системы</OPTION>
-                            <OPTION VALUE=5>Манипулирование продуктом</OPTION>
-                            <OPTION VALUE=6>Тип электрической сети для системы</OPTION>
-                            <OPTION VALUE=7>Воздействие продукта на человека</OPTION>
-                            <OPTION VALUE=8>Воздействие продукта на машины</OPTION>
-                            <OPTION VALUE=9>Подверженность продукта погодным условиям</OPTION>
-                        </SELECT>
-                    </div>
-                    <p>Влияние стратегии для учета перенапряжений в разработке продукта Ruggedising</p>
-                    <div class="dropdown dropdown-dark">
-                        <SELECT id="Items" NAME="Item" class="dropdown-select">
-                            <OPTION VALUE=1 SELECTED>Оцените рекомендации</OPTION>
-                            <OPTION VALUE=2>Напишите полные процедуры для всех операций по внедрению и обслуживанию продукта</OPTION>
-                            <OPTION VALUE=3>Обеспечьте обучение и управление навыками использования и обслуживания продукта</OPTION>
-                            <OPTION VALUE=4>Убедитесь, что процедуры, относящиеся к продукту, и правила, характерные для предприятий, <br>соблюдаются соответствующим систем-ным мониторингом</OPTION>
-                            <OPTION VALUE=5>Проведите обзор работ по техническому обслуживанию, выполненных <br> конечным пользователем, и ознакомьтесь с его рекомендациями</OPTION>
-                            <OPTION VALUE=6>Убедитесь, что экологические характеристики выполнены. Критерии проверки полноты спецификаций: анализ, испытания, отзывы о работе, соблюдение стандартов</OPTION>
-                            <OPTION VALUE=7>Обосновать соблюдение экологических требований</OPTION>
-                            <OPTION VALUE=8>Провести процесс улучшения продукта (например, ускоренные стресс-тесты), чтобы ограничить чувствительность продукта до ограничения окружающей среды (помехи, окружающая среда, перенапряжение)</OPTION>
-                            <OPTION VALUE=9>Выполните анализ процесса выполнения операций по внедрению и обслуживанию</OPTION>
-                            <OPTION VALUE=10>Соблюдайте стандарт, касающийся источников питания (стандарт, такой как EN2282, который определяет возможные помехи и возможные изменения). Стандарт должен соблюдаться как для производства электроэнергии, так и для потребления электроэнергии.</OPTION>
-                            <OPTION VALUE=11>Проведите анализ случаев сбоев, которые могут привести к распространению сбоев</OPTION>
-                            <OPTION VALUE=12>Включите среды производства, хранения и обслуживания в спецификации сред продукта</OPTION>
-                            <OPTION VALUE=13>Изучите и обработайте риски ухудшения тестируемого продукта из-за сбоев его средств тестирования. Критерии: Риски, проанализированные при проектировании испытательного средства и проверяемого устройства, настройте адаптированные средства предотвращения</OPTION>
-                            <OPTION VALUE=14>Используйте соответствующие средства предотвращения для выявления разумно предсказуемого ненормального использования.</OPTION>
-                            <OPTION VALUE=15>Определите и используйте соответствующие средства предотвращения для предотвращения обоснованно предсказуемых агрессий (связанных с погодой)</OPTION>
-                            <OPTION VALUE=16>Проектируйте надежные устройства электрической защиты: - идентифицируйте системы электрической защиты - убедитесь, что они проверяемы и ремонтопригодны - интегрируйте корпус этих устройств в определение политики технического обслуживания</OPTION>
-                            <OPTION VALUE=14>Соблюдайте стандарт, касающийся кондуктивных и излучаемых электромагнитных помех. Это в равной степени применимо к продукту и системе, в которую он интегрирован</OPTION>
-                        </SELECT>
-                    </div>
-                </center>
+                </div>
             </div>
-            <div class="erl">
-                <p>Коэффициент изготовления компонентов PM</p>
-                <center>
-                    <p>Уровень обеспечения качества производителя qaManufacturer</p>
-                    <div class="dropdown dropdown-dark">
-                        <SELECT id="Posts" NAME="Post" class="dropdown-select">
-                            <OPTION VALUE=1 SELECTED>Выберите</OPTION>
-                            <OPTION VALUE=2>Сертифицированный ISO / TS16949 V2002</OPTION>
-                            <OPTION VALUE=3>Сертифицировано по одному из следующих стандартов:
-                            QS9000, TL9000, ISO / TS 29001, EN9100, AS9100,
-                            JISQ 9100, AQAP 2110, AQAP 2120, AQAP 2130, IRIS,
-                            IEC TS 62239, ESA / ECSS QPL, MIL-PRF-38535 QML,
-                            MIL-PRF-19500
-                            </OPTION>
-                            <OPTION VALUE=2>ISO 9000 версия 2000 сертифицирована</OPTION>
-                            <OPTION VALUE=2>Нет информации</OPTION>
-                        </SELECT>
-                    </div>
-                    <p>Уровень обеспечения качества компонентов qaComponent</p>
-                    <div class="dropdown dropdown-dark">
-                        <SELECT id="Libles" NAME="Lible" class="dropdown-select">
-                            <OPTION VALUE=1 SELECTED>Выберите</OPTION>
-                            <OPTION VALUE=2>Квалификация в соответствии с од-ним из следующих стандартов:
-                            AEC Q200, уровень S MIL-PRF-xxxx, уровень R MIL-PRF-xxxx,
-                            MIL-PRF-xxxx уровень D, MIL-PRF-уровень C, уровень ESCC 400x
-                            B, NASDA-QTS-xxxx, класс I
-                            </OPTION>
-                            <OPTION VALUE=3>Квалификация в соответствии с од-ним из следующих стандартов:
-                            MIL-PRF-xxx уровень P, MIL-PRF-xxxx уровень B, ESCC 400x
-                            уровень C, NASDA-QTS-xxxx класс II с идентификацией
-                            производственные площадки по этим стандартам
-                            </OPTION>
-                            <OPTION VALUE=4>Квалификация в соответствии с од-ним из следующих утвержденных
-                            Стандарты CECC: MIL-PRF-xxxx уро-вень M или квалификация
-                            программа внутренняя для произво-дителя и неопознанная
-                            производственные площадки
-                            </OPTION>
-                            <OPTION VALUE=5>Нет информации</OPTION>
-                        </SELECT>
-                    </div>
-                    <p>Фактор опыта Zet</p>
-                    <div class="dropdown dropdown-dark">
-                        <SELECT id="Soils" NAME="Soil" class="dropdown-select">
-                            <OPTION VALUE=1 SELECTED>Выберите</OPTION>
-                            <OPTION VALUE=2>Признанный производитель: зрелые процессы для рассматриваемого элемента</OPTION>
-                            <OPTION VALUE=3>Признанный производитель - Процессы, не проанализированные или не созревшие для рассматриваемой позиции</OPTION>
-                            <OPTION VALUE=4>Производитель не признан (например, никогда не проверялся и не проверялся более 6 лет назад) или производство небольших серий</OPTION>
-                            <OPTION VALUE=4>Предыдущая дисквалификация или проблема с обратной связью от операций</OPTION>
-                        </SELECT>
-                    </div>
-                </center>
+        </div>
+
+        <!-- One-field inputs -->
+        <div class="mb-4 one-field-blocks-container">
+            <div id="someVariableBlock" class="form-group">
+                <label>Some variable</label>
+                <div class="input-group">
+                    <input class="form-control" data-input-type="number" pattern="^-?\d+(?:.\d+)?$">
+                </div>
             </div>
-            <div class="er">
-                <p>Расчет коэффициента процесса Process</p>
-                <center><p>Спецификация — Рекомендация</p>
-                        <div class="dropdown dropdown-dark">
-                            <SELECT id="Items" NAME="Item" class="dropdown-select">
-                                <OPTION VALUE=1 SELECTED>Выберите</OPTION>
-                                <OPTION VALUE=2>Алюминиевый жидкий электролитный конденсатор</OPTION>
-                                <OPTION VALUE=3>Алюминиевый твердый электролитный конденсатор</OPTION>
-                            </SELECT>
-                        </div>
-                        <p>Дизайн — Рекомендация</p>
-                        <div class="dropdown dropdown-dark">
-                            <SELECT id="Items" NAME="Item" class="dropdown-select">
-                                <OPTION VALUE=1 SELECTED>Выберите</OPTION>
-                                <OPTION VALUE=2>Алюминиевый жидкий электролитный конденсатор</OPTION>
-                                <OPTION VALUE=3>Алюминиевый твердый электролитный конденсатор</OPTION>
-                            </SELECT>
-                        </div>
-                        <p>Изготовление платы или сборочного узла — Рекомендация</p>
-                        <div class="dropdown dropdown-dark">
-                            <SELECT id="Items" NAME="Item" class="dropdown-select">
-                                <OPTION VALUE=1 SELECTED>Выберите</OPTION>
-                                <OPTION VALUE=2>Цифровая неинтерфейсная функция</OPTION>
-                                <OPTION VALUE=3>Функция цифрового интерфейса</OPTION>
-                                <OPTION VALUE=4>Аналоговая низкоуровневая неинтерфейсная функция</OPTION>
-                                <OPTION VALUE=5>Функция аналогового интерфейса низкого уровня</OPTION>
-                                <OPTION VALUE=6>Аналоговая функция питания без интерфейса</OPTION>
-                                <OPTION VALUE=7>Функция аналогового интерфейса питания</OPTION>
-                            </SELECT>
-                        </div>
-                        <p>Интеграция в оборудование — Рекомендация</p>
-                        <div class="dropdown dropdown-dark">
-                            <SELECT id="Items" NAME="Item" class="dropdown-select">
-                                <OPTION VALUE=1 SELECTED>Выберите</OPTION>
-                                <OPTION VALUE=2>Благоприятный или доброкачественный</OPTION>
-                                <OPTION VALUE=3>Умеренный</OPTION>
-                                <OPTION VALUE=4>Неблагоприятный или серьезный</OPTION>
-                            </SELECT>
-                        </div>
-                        <p>Интеграция в систему — Рекомендация</p>
-                        <div class="dropdown dropdown-dark">
-                            <SELECT id="Items" NAME="Item" class="dropdown-select">
-                                <OPTION VALUE=1 SELECTED>Выберите</OPTION>
-                                <OPTION VALUE=2>Благоприятный или доброкачественный</OPTION>
-                                <OPTION VALUE=3>Умеренный</OPTION>
-                                <OPTION VALUE=4>Неблагоприятный или серьезный</OPTION>
-                            </SELECT>
-                        </div>
-                        <p>Эксплуатация и техническое обслуживание — Рекомендация</p>
-                        <div class="dropdown dropdown-dark">
-                            <SELECT id="Items" NAME="Item" class="dropdown-select">
-                                <OPTION VALUE=1 SELECTED>Выберите</OPTION>
-                                <OPTION VALUE=2>Благоприятный или доброкачественный</OPTION>
-                                <OPTION VALUE=3>Умеренный</OPTION>
-                                <OPTION VALUE=4>Неблагоприятный или серьезный</OPTION>
-                            </SELECT>
-                        </div>
-                        <p>Вспомогательные мероприятия — Рекомендация</p>
-                        <div class="dropdown dropdown-dark">
-                            <SELECT id="Items" NAME="Item" class="dropdown-select">
-                                <OPTION VALUE=1 SELECTED>Выберите</OPTION>
-                                <OPTION VALUE=2>Благоприятный или доброкачественный</OPTION>
-                                <OPTION VALUE=3>Умеренный</OPTION>
-                                <OPTION VALUE=4>Неблагоприятный или серьезный</OPTION>
-                            </SELECT>
-                        </div>
-                </div></center>
+
+            <div id="someVariableBlock" class="form-group">
+                <label>Some variable 2</label>
+                <div class="input-group">
+                    <select class="custom-select">
+                        <option value="1">Option one</option>
+                        <option value="2">Option two</option>
+                        <option value="3">Option three</option>
+                    </select>
+                </div>
             </div>
-            <br>
-            <b>Результаты расчёта вероятности отказа:</b>
-            <div id="answer"></div>
-        </section>
-    </FORM>
+
+            <!-- Other blocks here (generate programmatically?) -->
+        </div>
+
+        <!-- Phase count dependent block -->
+        <div class="phase-deps-container">
+            <div id="phaseDepsBlock1" class="mb-4 phase-deps-block card card-body">
+                <div id="someVariableBlock" class="form-group">
+                    <label>Some phase dep variable</label>
+                    <div class="input-group">
+                        <input class="form-control" data-input-type="number" pattern="^-?\d+(?:.\d+)?$">
+                    </div>
+                </div>
+
+                <div id="someVariableBlock" class="form-group">
+                    <label>Some phase dep variable</label>
+                    <div class="input-group">
+                        <input class="form-control" data-input-type="number" pattern="^-?\d+(?:.\d+)?$">
+                    </div>
+                </div>
+            </div>
+
+            <div id="phaseDepsBlock2" class="phase-deps-block card card-body">
+                <div id="someVariableBlock" class="form-group">
+                    <label>Some phase dep variable</label>
+                    <div class="input-group">
+                        <input class="form-control" data-input-type="number" pattern="^-?\d+(?:.\d+)?$">
+                    </div>
+                </div>
+
+                <div id="someVariableBlock" class="form-group">
+                    <label>Some phase dep variable</label>
+                    <div class="input-group">
+                        <input class="form-control" data-input-type="number" pattern="^-?\d+(?:.\d+)?$">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <script type="text/javascript">
+
+        // Set + and - buttons event handlers (around number inputs)
+
+        document.querySelectorAll('[data-decrement-input]').forEach((elem) => {
+            elem.addEventListener('click', (event) => {
+                var inputId = event.target.getAttribute('data-decrement-input');
+                var input = document.getElementById(inputId);
+
+                var min = input.getAttribute('min');
+                var max = input.getAttribute('max');
+                var step = input.getAttribute('step') || 1;
+
+                var newValue = (+input.value - +step);
+
+                if (Number.isInteger(newValue) && newValue >= input.getAttribute('min') && newValue <= input.getAttribute('max')) {
+                    input.value = newValue;
+                } else {
+                    input.value = input.getAttribute('min');
+                }
+            });
+        });
+
+        document.querySelectorAll('[data-increment-input]').forEach((elem) => {
+            elem.addEventListener('click', (event) => {
+                var inputId = event.target.getAttribute('data-increment-input');
+                var input = document.getElementById(inputId);
+
+                var min = input.getAttribute('min');
+                var max = input.getAttribute('max');
+                var step = input.getAttribute('step') || 1;
+
+                var newValue = (+input.value + +step);
+
+                if (Number.isInteger(newValue) && newValue >= input.getAttribute('min') && newValue <= input.getAttribute('max')) {
+                    input.value = newValue;
+                } else {
+                    input.value = input.getAttribute('max');
+                }
+            });
+        });
+    </script>
 
 
 

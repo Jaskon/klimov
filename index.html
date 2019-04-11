@@ -15,6 +15,8 @@
     <script type="text/javascript" src="formulas/Physical.js"></script>
     <script type="text/javascript" src="calc.js"></script>
     <script type="text/javascript" src="script.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
 
@@ -71,7 +73,131 @@
 
 
 
+    <div class="mt-4 mb-4 container">
+
+        <!-- Phase count -->
+        <div class="mb-4 phase-count-block">
+            <div class="form-group">
+                <label>Phase count</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <button class="btn btn-outline-danger" type="button" data-decrement-input="phase-count-input">-</button>
+                    </div>
+                    <input id="phase-count-input" class="form-control phase-count-input one-field-input" type="text" value="1" min="1" max="5" step="1">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-success" type="button" data-increment-input="phase-count-input">+</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- One-field inputs -->
+        <div class="mb-4 one-field-blocks-container">
+            <div id="someVariableBlock" class="form-group">
+                <label>Some variable</label>
+                <div class="input-group">
+                    <input class="form-control" data-input-type="number" pattern="^-?\d+(?:.\d+)?$">
+                </div>
+            </div>
+
+            <div id="someVariableBlock" class="form-group">
+                <label>Some variable 2</label>
+                <div class="input-group">
+                    <select class="custom-select">
+                        <option value="1">Option one</option>
+                        <option value="2">Option two</option>
+                        <option value="3">Option three</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Other blocks here (generate programmatically?) -->
+        </div>
+
+        <!-- Phase count dependent block -->
+        <div class="phase-deps-container">
+            <div id="phaseDepsBlock1" class="mb-4 phase-deps-block card card-body">
+                <div id="someVariableBlock" class="form-group">
+                    <label>Some phase dep variable</label>
+                    <div class="input-group">
+                        <input class="form-control" data-input-type="number" pattern="^-?\d+(?:.\d+)?$">
+                    </div>
+                </div>
+
+                <div id="someVariableBlock" class="form-group">
+                    <label>Some phase dep variable</label>
+                    <div class="input-group">
+                        <input class="form-control" data-input-type="number" pattern="^-?\d+(?:.\d+)?$">
+                    </div>
+                </div>
+            </div>
+
+            <div id="phaseDepsBlock2" class="phase-deps-block card card-body">
+                <div id="someVariableBlock" class="form-group">
+                    <label>Some phase dep variable</label>
+                    <div class="input-group">
+                        <input class="form-control" data-input-type="number" pattern="^-?\d+(?:.\d+)?$">
+                    </div>
+                </div>
+
+                <div id="someVariableBlock" class="form-group">
+                    <label>Some phase dep variable</label>
+                    <div class="input-group">
+                        <input class="form-control" data-input-type="number" pattern="^-?\d+(?:.\d+)?$">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
     <button id="calculateButton">Calculate</button>
+
+
+
+    <script type="text/javascript">
+
+        // Set + and - buttons event handlers (around number inputs)
+
+        document.querySelectorAll('[data-decrement-input]').forEach((elem) => {
+            elem.addEventListener('click', (event) => {
+                var inputId = event.target.getAttribute('data-decrement-input');
+                var input = document.getElementById(inputId);
+
+                var min = input.getAttribute('min');
+                var max = input.getAttribute('max');
+                var step = input.getAttribute('step') || 1;
+
+                var newValue = (+input.value - +step);
+
+                if (Number.isInteger(newValue) && newValue >= input.getAttribute('min') && newValue <= input.getAttribute('max')) {
+                    input.value = newValue;
+                } else {
+                    input.value = input.getAttribute('min');
+                }
+            });
+        });
+
+        document.querySelectorAll('[data-increment-input]').forEach((elem) => {
+            elem.addEventListener('click', (event) => {
+                var inputId = event.target.getAttribute('data-increment-input');
+                var input = document.getElementById(inputId);
+
+                var min = input.getAttribute('min');
+                var max = input.getAttribute('max');
+                var step = input.getAttribute('step') || 1;
+
+                var newValue = (+input.value + +step);
+
+                if (Number.isInteger(newValue) && newValue >= input.getAttribute('min') && newValue <= input.getAttribute('max')) {
+                    input.value = newValue;
+                } else {
+                    input.value = input.getAttribute('max');
+                }
+            });
+        });
+    </script>
 
 
 

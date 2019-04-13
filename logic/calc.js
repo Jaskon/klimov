@@ -1,66 +1,101 @@
-// Array of values of dom wrappers
-function extractValues(domWraps) {
-    return null;
+// Itarate over indexes and calc an array, unpacking {itarate} items for every index
+function reduce(indexes, func, params) {
+    return indexes.reduce((accum, i) => {
+        let p = params;
+        p.map(param => {
+            if (param instanceof Object) {
+                if (param.interate) {
+                    return param.value[i];
+                }
+            }
+            return param;
+        });
 
-    return domWraps.reduce((accum, domWrap) => {
-        accum.push(domWrap.dom.getValue());
+        accum.push(func(...p));
         return accum;
     }, []);
 }
 
-// Just for generize
-function extractValue(domWrap) {
-    domWrap.getValue();
+
+class calcValuesBuilder {
+    oCapatitor(value)     { this.oCapatitor     = value; return this; }
+    tAnnualArr(value)     { this.tAnnualArr     = value; return this; }
+    thEl(value)           { this.thEl           = value; return this; }
+    sReference(value)     { this.sReference     = value; return this; }
+    vRappliedArr(value)   { this.vRappliedArr   = value; return this; }
+    vRatedArr(value)      { this.vRatedArr      = value; return this; }
+    eA(value)             { this.eA             = value; return this; }
+    boardAmdArr(value)    { this.boardAmdArr    = value; return this; }
+    yTCy(value)           { this.yTCy           = value; return this; }
+    nAnnualCy(value)      { this.nAnnualCy      = value; return this; }
+    oCyArr(value)         { this.oCyArr         = value; return this; }
+    tCyclingArr(value)    { this.tCyclingArr    = value; return this; }
+    maxCyclingArr(value)  { this.maxCyclingArr  = value; return this; }
+    yMech(value)          { this.yMech          = value; return this; }
+    gRMSArr(value)        { this.gRMSArr        = value; return this; }
+    placement(value)      { this.placement      = value; return this; }
+    applicationArr(value) { this.applicationArr = value; return this; }
+    ruggedising(value)    { this.ruggedising    = value; return this; }
+    sensitivity(value)    { this.sensitivity    = value; return this; }
 }
 
 
-function calculate (domsHolder) {
-    let oCapatitor = extractValue(domsHolder.oCapacitorBlock);
-    let tAnnualArr = extractValues(domsHolder.tAnnualBlocks);
-    let thEl = extractValue(domsHolder.thElBlock);
-    let sReference = extractValue(domsHolder.sReferenceBlock);
-    let vRappliedArr = extractValues(domsHolder.vRappliedBlocks);
-    let vRatedArr = extractValues(domsHolder.vRatedBlocks);
-    let eA = extractValue(domsHolder.eABlock);
-    let boardAmdArr = extractValues(domsHolder.boardAmdBlocks);
-
-    let yTCy = extractValue(domsHolder.yTCyBlock);
-    let nAnnualCy = extractValue(domsHolder.nAnnualCyBlock);
-
-    let oCyArr = extractValues(domsHolder.oCyBlocks);
-    let tCyclingArr = extractValues(domsHolder.tCyclingBlocks);
-    let maxCyclingArr = extractValues(domsHolder.maxCyclingBlocks);
-
-    let yMech = extractValue(domsHolder.yMechBlock);
-    let gRMSArr = extractValues(domsHolder.gRMSBlocks);
-
-    let placement = extractValue(domsHolder.placementBlock);
-    let applicationArr = extractValues(domsHolder.applicationBlocks);
-    let ruggedising = extractValue(domsHolder.ruggedisingBlock);
-    let sensitivity = extractValue(domsHolder.sensitivityBlock);
+function calculate (values) {
+    
+    let oCapatitor     = values.oCapatitor;
+    let tAnnualArr     = values.tAnnualArr;
+    let thEl           = values.thEl;
+    let sReference     = values.sReference;
+    let vRappliedArr   = values.vRappliedArr;
+    let vRatedArr      = values.vRatedArr;
+    let eA             = values.eA;
+    let boardAmdArr    = values.boardAmdArr;
+    let yTCy           = values.yTCy;
+    let nAnnualCy      = values.nAnnualCy;
+    let oCyArr         = values.oCyArr;
+    let tCyclingArr    = values.tCyclingArr;
+    let maxCyclingArr  = values.maxCyclingArr;
+    let yMech          = values.yMech;
+    let gRMSArr        = values.gRMSArr;
+    let placement      = values.placement;
+    let applicationArr = values.applicationArr;
+    let ruggedising    = values.ruggedising;
+    let sensitivity    = values.sensitivity;
 
 
     let phasesArr = Array.from(domsHolder.phaseBlocks.keys());
 
 
-    let thermoElectroArr = phasesArr.reduce((accum, i) => {
-        accum.push(calcThermoElectro(thEl, sReference, vRappliedArr[i], vRatedArr[i], eA, boardAmdArr[i]));
-        return accum;
-    }, []);
+    let thermoElectroArr = reduce(phasesArr, calcThermoElectro, [
+        thEl,
+        sReference,
+        {iterate: true, value: vRappliedArr},
+        {iterate: true, value: vRatedArr},
+        eA,
+        {iterate: true, value: boardAmdArr}
+    ]);
 
-    let tCyArr = phasesArr.reduce((accum, i) => {
-        accum.push(calcTCy(yTCy, nAnnualCy, tAnnualArr[i], oCy, sReference, tCyclingArr[i], maxCyclingArr[i]));
-        return accum;
-    }, []);
+    let tCyArr = reduce(phasesArr, calcTCy, [
+        yTCy,
+        nAnnualCy,
+        {iterate: true, value: tAnnualArr},
+        {iterate: true, value: oCyArr},
+        sReference,
+        {iterate: true, value: tCyclingArr},
+        {iterate: true, value: maxCyclingArr}
+    ]);
 
-    let mechanicalArr = phasesArr.reduce((accum, i) => {
-        accum.push(calcMechanical(yMech, gRMSArr));
-        return accum;
-    }, []);
+    let mechanicalArr = reduce(phasesArr, calcMechanical, [
+        yMech,
+        {itarate: true, value: gRMSArr}
+    ]);
 
-    let inducedArr = phasesArr.reduce((accum, i) => {
-        accum.push(calcInduced(placement, applicationArr[i], ruggedising, sensitivity));
-    }, []);
+    let inducedArr = reduce(phasesArr, calcInduced, [
+        placement,
+        {itarate: true, value: applicationArr},
+        ruggedising,
+        sensitivity
+    ]);
 
 
     let physical = calcPhysical(
@@ -71,4 +106,7 @@ function calculate (domsHolder) {
         mechanicalArr,
         inducedArr
     );
+
+
+    return physical;
 }

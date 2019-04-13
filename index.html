@@ -18,8 +18,11 @@
     <script type="text/javascript" src="logic/initTemplateFromValues.js"></script>
     <!-- Data and classes -->
     <script type="text/javascript" src="init_values.js"></script>
-    <script type="text/javascript" src="Doms/GenericField.js"></script>
+    <script type="text/javascript" src="Doms/FieldFabric.js"></script>
     <script type="text/javascript" src="Doms/PhaseBlock.js"></script>
+    <script type="text/javascript" src="Doms/InputNumberField.js"></script>
+    <script type="text/javascript" src="Doms/InputField.js"></script>
+    <script type="text/javascript" src="Doms/SelectField.js"></script>
     <script type="text/javascript" src="formulas/Physical.js"></script>
     <!-- Main -->
     <script type="text/javascript" src="script.js"></script>
@@ -29,138 +32,37 @@
 <body>
 
 
-    <div id="phaseCountBlock">
-        <input type="number" value="1" min="1" max="5">
-    </div>
-
-
-    <div id="oCapacitorBlock">
-        <input type="text" placeholder="oCapacitorBlock">
-    </div>
-    
-    <div id="thElBlock">
-        <input type="text" placeholder="thElBlock">
-    </div>
-    
-    <div id="sReferenceBlock">
-        <input type="text" placeholder="sReferenceBlock">
-    </div>
-    
-    <div id="eABlock">
-        <input type="text" placeholder="eABlock">
-    </div>
-    
-    <div id="yTCyBlock">
-        <input type="text" placeholder="yTCyBlock">
-    </div>
-    
-    <div id="nAnnualCyBlock">
-        <input type="text" placeholder="nAnnualCyBlock">
-    </div>
-    
-    <div id="yMechBlock">
-        <input type="text" placeholder="yMechBlock">
-    </div>
-    
-    <div id="placementBlock">
-        <input type="text" placeholder="placementBlock">
-    </div>
-    
-    <div id="ruggedisingBlock">
-        <input type="text" placeholder="ruggedisingBlock">
-    </div>
-    
-    <div id="sensitivityBlock">
-        <input type="text" placeholder="sensitivityBlock">
-    </div>
-
-
-    <div id="phaseBlockContainer">
-
-    </div>
-
-
 
     <div class="mt-4 mb-4 container">
 
         <!-- Phase count -->
-        <div class="mb-4 phase-count-block">
+        <div id="phaseCountBlock" class="mb-4 phase-count-block">
             <div class="form-group">
                 <label>Phase count</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <button class="btn btn-outline-danger" type="button" data-decrement-input="phase-count-input">-</button>
+                        <button class="btn btn-outline-danger" type="button" data-decrement-input="phaseCountInput">-</button>
                     </div>
-                    <input id="phase-count-input" class="form-control phase-count-input one-field-input" type="text" value="1" min="1" max="5" step="1">
+                    <input id="phaseCountInput" class="form-control phase-count-input one-field-input" type="text" value="1" min="1" max="5" step="1">
                     <div class="input-group-append">
-                        <button class="btn btn-outline-success" type="button" data-increment-input="phase-count-input">+</button>
+                        <button class="btn btn-outline-success" type="button" data-increment-input="phaseCountInput">+</button>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- One-field inputs -->
-        <div class="mb-4 one-field-blocks-container">
-            <div id="someVariableBlock" class="form-group">
-                <label>Some variable</label>
-                <div class="input-group">
-                    <input class="form-control" data-input-type="number" pattern="^-?\d+(?:.\d+)?$">
-                </div>
-            </div>
-
-            <div id="someVariableBlock" class="form-group">
-                <label>Some variable 2</label>
-                <div class="input-group">
-                    <select class="custom-select">
-                        <option value="1">Option one</option>
-                        <option value="2">Option two</option>
-                        <option value="3">Option three</option>
-                    </select>
-                </div>
-            </div>
-
-            <!-- Other blocks here (generate programmatically?) -->
+        <div id="oneFieldBlocksContainer" class="mb-4 one-field-blocks-container">
         </div>
+
 
         <!-- Phase count dependent block -->
-        <div class="phase-deps-container">
-            <div id="phaseDepsBlock1" class="mb-4 phase-deps-block card card-body">
-                <div id="someVariableBlock" class="form-group">
-                    <label>Some phase dep variable</label>
-                    <div class="input-group">
-                        <input class="form-control" data-input-type="number" pattern="^-?\d+(?:.\d+)?$">
-                    </div>
-                </div>
-
-                <div id="someVariableBlock" class="form-group">
-                    <label>Some phase dep variable</label>
-                    <div class="input-group">
-                        <input class="form-control" data-input-type="number" pattern="^-?\d+(?:.\d+)?$">
-                    </div>
-                </div>
-            </div>
-
-            <div id="phaseDepsBlock2" class="phase-deps-block card card-body">
-                <div id="someVariableBlock" class="form-group">
-                    <label>Some phase dep variable</label>
-                    <div class="input-group">
-                        <input class="form-control" data-input-type="number" pattern="^-?\d+(?:.\d+)?$">
-                    </div>
-                </div>
-
-                <div id="someVariableBlock" class="form-group">
-                    <label>Some phase dep variable</label>
-                    <div class="input-group">
-                        <input class="form-control" data-input-type="number" pattern="^-?\d+(?:.\d+)?$">
-                    </div>
-                </div>
-            </div>
+        <div id="phaseBlocksContainer" class="phase-deps-container">
         </div>
 
+        <button id="calculateButton" class="btn btn-outline-secondary">Calculate</button>
+
     </div>
-
-
-    <button id="calculateButton">Calculate</button>
 
 
 
@@ -184,6 +86,9 @@
                 } else {
                     input.value = input.getAttribute('min');
                 }
+
+                var event = new Event('input');
+                input.dispatchEvent(event);
             });
         });
 
@@ -203,6 +108,9 @@
                 } else {
                     input.value = input.getAttribute('max');
                 }
+
+                var event = new Event('input');
+                input.dispatchEvent(event);
             });
         });
     </script>

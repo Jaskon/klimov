@@ -16,7 +16,7 @@ function calcThermoElectro(thEl, sReference, vRapplied, vRated, eA, boardAmd) {
 
 
 function calcTCy(yTCy, nAnnualCy, tAnnual, oCy, sReference, tCycling, maxCycling) {
-    return yTCy * (12 * nAnnualCy / tAnnaul) * Math.pow(Math.min(oCy, 2) / sReference, 1/3) * Math.pow(tCycling / 20, 1.9) * Math.exp(1414 * ((1 / 313) - (1 / (maxCycling + 273))));
+    return yTCy * (12 * nAnnualCy / tAnnual) * Math.pow(Math.min(oCy, 2) / sReference, 1/3) * Math.pow(tCycling / 20, 1.9) * Math.exp(1414 * ((1 / 313) - (1 / (maxCycling + 273))));
 }
 
 

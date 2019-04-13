@@ -27,7 +27,6 @@ domsHolder = {
 let phasesCount = 0;
 
 
-
 window.addEventListener('load', () => {
     domsHolder.phaseCountBlock = new GenericField('phaseCountBlock');
 
@@ -44,49 +43,11 @@ window.addEventListener('load', () => {
     domsHolder.sensitivityBlock = new GenericField('sensitivityBlock');
 
 
-    domsHolder.phaseCountBlock.input.addEventListener('change', (event) => {
-        var value = event.target.value;
+    domsHolder.phaseCountBlock.input.addEventListener('change', event => phaseCountChangeHandler(event.target.value, phasesCount));
+    document.getElementById('calculateButton').addEventListener('click', event => calcClickHandler(domsHolder));
 
-        let i = phasesCount;
-
-        // Add new phase blocks if needed
-        while (i < count) {
-
-            // Other blocks, that depends on phase number
-            let phaseBlock = new Phaseblock(i);    // Class with .dom field inside. Wrapper for fields. Creates dom and provides .get (and .remove?) function
-            // Also appends dependent blocks into himself on constructor
-
-            let phaseBlocksContainer = document.getElementById('phaseBlocksContainer');    // Wrapper for phase blocks
-            phaseBlocksContainer.append(phaseBlock.dom);    // Append new phase block
-            // Store phaseBlock in global array
-            domsHolder.phaseBlocks.push(phaseBlock);
-
-            // ++ after the code to count elems from 0
-            i++;
-        }
-
-        // Remove unnecessary phase blocks
-        while (i > count) {
-
-            i--;
-
-            let pos = findByPhase(phaseBlocks, i);
-            domsHolder.phaseBlocks[pos].remove();    // Remove method of *block class
-            domsHolder.phaseBlocks.slice(pos, 1);
-        }
-    
-        phasesCount = i;
-    });
-
-
-    function fireEvent(element, eventName) {
-        var event = new Event(eventName);
-        element.dispatchEvent(event);
-    }
-
-
-    document.getElementById('calculateButton').addEventListener('click', () => {
-        fireEvent(domsHolder.phaseCountBlock.input, 'change');
-        console.log(calculate());
-    });
+    // Generate html one-field template part from init_values.js
+    initTemplateFromValues(initValues);
+    // Generate first phase block template(s) (depends of phaseCountInput value, its default should be 1)
+    fireEvent(domsHolder.phaseCountBlock.input, 'change');
 });

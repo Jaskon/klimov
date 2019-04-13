@@ -1,14 +1,3 @@
-// Returns position in array
-function findByPhase(arr, phase) {
-    for (let i = 0; i < arr.length; i++) {
-        if (arr[i].phase == phase) {
-            return i;
-        }
-    }
-
-    return undefined;
-}
-
 // Array of values of dom wrappers
 function extractValues(domWraps) {
     return null;
@@ -25,7 +14,7 @@ function extractValue(domWrap) {
 }
 
 
-function calculate () {
+function calculate (domsHolder) {
     let oCapatitor = extractValue(domsHolder.oCapacitorBlock);
     let tAnnualArr = extractValues(domsHolder.tAnnualBlocks);
     let thEl = extractValue(domsHolder.thElBlock);
@@ -51,7 +40,7 @@ function calculate () {
     let sensitivity = extractValue(domsHolder.sensitivityBlock);
 
 
-    let phasesArr = Array.from(phaseBlocks.keys());
+    let phasesArr = Array.from(domsHolder.phaseBlocks.keys());
 
 
     let thermoElectroArr = phasesArr.reduce((accum, i) => {

@@ -14,7 +14,7 @@ class PhaseBlock {
 
         let block = document.createElement('div');
         block.id = 'phaseDepsBlock' + index;
-        block.classList.add('mb-4', 'phase-deps-block', 'card');
+        block.classList.add('field-block', 'phase-deps-block', 'card');
 
         let header = document.createElement('div');
         header.classList.add('card-header', 'text-center');

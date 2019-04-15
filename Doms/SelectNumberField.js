@@ -1,4 +1,4 @@
-class SelectFieldWrapper {
+class SelectNumberFieldWrapper {
     // If dom is not passed - this.dom is the element from ui, got by id
     // If dom is passed - this.dom is the passed dom
     constructor(id, dom) {
@@ -9,7 +9,7 @@ class SelectFieldWrapper {
 
 
     getValue() {
-        return this.input.value;
+        return +this.input.value;
     }
 }
 
@@ -26,13 +26,13 @@ class SelectFieldWrapper {
 // </div>
 
 
-class SelectField extends SelectFieldWrapper {
-    constructor(id, name, values, defaultValue) {
+class SelectNumberField extends SelectNumberFieldWrapper {
+    constructor(id, name, values, defaultValue, payload) {
         // Generate template for the field
 
         let block = document.createElement('div');
         block.id = id;
-        block.classList.add('form-group');
+        block.classList.add('field-block', 'form-group');
 
         let label = document.createElement('label');
         label.innerHTML = name;
@@ -46,14 +46,19 @@ class SelectField extends SelectFieldWrapper {
         select.classList.add('custom-select');
         div.appendChild(select);
 
-        for (let value in values) {
+        for (let one of values) {
             let option = document.createElement('option');
-            option.value = value;
-            option.innerHTML = values[value];    // Value description as text
+            option.value = one.value;
+            option.innerHTML = one.text;    // Value description as text
             select.appendChild(option);
         }
 
         select.value = defaultValue;
+
+
+        if (payload) {
+            setDataAttributes(select, payload);
+        }
 
 
         super(id, block);

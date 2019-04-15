@@ -29,6 +29,21 @@ function calcInduced(placement, application, ruggedising, sensitivity) {
     return Math.pow(placement * application * ruggedising, 0.511 * Math.log(sensitivity));
 }
 
+// pMarks is [{ value: Number, pos: Number }]
+function calcApplication(pMarks) {
+    return (1 / 66) * pMarks.reduce((accum, pMark) => {
+        return accum + pMark.value * pMark.pos;
+    }, 0);
+}
+
+// pMarks is [{ value: Number, pos: Number }]
+function calcRuggedising(pMarks) {
+    let sum = (1 / 255) * pMarks.reduce((accum, pMark) => {
+        return accum + pMark.value * pMark.pos;
+    }, 0);
+    return Math.exp(0.7 * (1 - sum));
+}
+
 
 
 

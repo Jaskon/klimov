@@ -9,13 +9,21 @@ class PMarksBlock {
         block.classList.add('field-block', 'card');
 
         let header = document.createElement('div');
-        header.classList.add('card-header', 'text-center');
+        header.classList.add('card-header', 'text-center', 'link');
+        header.setAttribute('data-toggle', 'collapse');
+        header.setAttribute('data-target', '#' + id + 'body');
         header.innerHTML = name;
         block.appendChild(header);
 
+        // Collapse body wrapper. This will be collapsed
+        let bodyCollapseWrapper = document.createElement('div');
+        bodyCollapseWrapper.classList.add('collapse');
+        bodyCollapseWrapper.id = id + 'body';
+        block.appendChild(bodyCollapseWrapper);
+
         let body = document.createElement('div');
         body.classList.add('p-4', 'card-body');
-        block.appendChild(body);
+        bodyCollapseWrapper.appendChild(body);
 
 
         elements.forEach((obj, i) => {

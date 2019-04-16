@@ -1,7 +1,7 @@
 // Array of values of dom wrappers (for phase dependent fields)
-function extractValues(domWraps, objElem) {
-    return domWraps.reduce((accum, domWrap) => {
-        accum.push(domWrap[objElem].getValue());
+function extractValues(phaseBlocks, objElem) {
+    return phaseBlocks.reduce((accum, domWraps) => {
+        accum.push(extractValue(domWraps[objElem]));
         return accum;
     }, []);
 }

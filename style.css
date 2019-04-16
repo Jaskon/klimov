@@ -24,10 +24,6 @@
 }
 
 
-.one-field-blocks-container {  }
-
-
-.phase-deps-container {  }
-
-.phase-deps-block {
+.link {
+    cursor: pointer;
 }

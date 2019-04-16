@@ -103,7 +103,7 @@ const initValues = [
         type: FieldTypes.InputNumber,
         id:'oCapacitorBlock',
 
-        name: 'oCapacitorBlock1111111111111111111111111111111111111111111111',
+        name: 'oCapacitorBlock',
         defaultValue: '1'
     },
 
@@ -135,7 +135,7 @@ const initValues = [
         type: FieldTypes.InputNumber,
         id:'yTCyBlock',
 
-        name: 'yTCyBlock',
+        name: 'Коэффициент температурного цикла',
         defaultValue: '1'
     },
 

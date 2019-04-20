@@ -1,10 +1,11 @@
 class SelectNumberFieldWrapper {
     // If dom is not passed - this.dom is the element from ui, got by id
     // If dom is passed - this.dom is the passed dom
-    constructor(id, dom) {
+    constructor(id, name, dom) {
         this.id = id;
         this.dom = dom ? dom : document.getElementById(id);
         this.input = this.dom.getElementsByTagName('select')[0];
+        this.name = name;
     }
 
 
@@ -61,6 +62,6 @@ class SelectNumberField extends SelectNumberFieldWrapper {
         }
 
 
-        super(id, block);
+        super(id, name, block);
     }
 }

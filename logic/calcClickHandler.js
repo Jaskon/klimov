@@ -18,16 +18,49 @@ function extractValue(domWrap) {
     return domWrap.getValue();
 }
 
-// TODO: Uncollapse outer if collapsed (go up for all parents checking for 'collapse !show' class. Add 'show'? Click 'card-header'?)
-function scrollAndFocusElement(elem) {
-    var x = window.scrollX, y = window.scrollY;
-    elem.focus();
-    window.scrollTo(x, y);
-    elem.scrollIntoView({block: "center", behavior: "smooth"});
+
+// In case of error
+
+function scrollAndFocusElement(uiObj) {
+    // Uncollapse if element have a parent
+    let wereUncollapsed = uncollapseElementParents(uiObj);
+    // Wait some time for element uncollapse (if it was) and then apply scroll and focus
+    setTimeout(() => {
+        let x = window.scrollX, y = window.scrollY;
+        uiObj.input.focus();
+        setTimeout(() => {
+            window.scrollTo(x, y);
+        });
+        setTimeout(() => {
+            uiObj.input.scrollIntoView({block: "center", behavior: "smooth"});
+        });
+    }, wereUncollapsed ? 300 : 0);
+}
+
+let invalidElems = [];
+
+function setFieldInvalid(uiObj) {
+    uncollapseElementParents(uiObj);
+    uiObj.input.classList.add('invalid');
+    invalidElems.push(uiObj)
+}
+
+function resetAllInvalid() {
+    invalidElems.forEach((uiObj) => {
+        uiObj.input.classList.remove('invalid');
+    });
+    invalidElems = [];
+}
+
+// Uncollapse outer if collapsed
+function uncollapseElementParents(uiObj) {
+    return uiObj.parent.collapse(true);
 }
 
 
 function calcClickHandler() {
+    resetAllInvalid();
+
     let values = new calcValuesBuilder()
 
 
@@ -57,10 +90,10 @@ function calcClickHandler() {
 
     // PM
 
-    .qaManufacturer(       extractValue(domsHolder.qaManufacturer),                         domsHolder.qaManufacturer)
-    .qaComponent(          extractValue(domsHolder.qaComponent),                            domsHolder.qaComponent)
-    .raComponent(          extractValue(domsHolder.raComponent),                            domsHolder.raComponent)
-    .zer(                  extractValue(domsHolder.zer),                                    domsHolder.zer)
+    .qaManufacturer(       extractValue(domsHolder.qaManufacturerBlock),                    domsHolder.qaManufacturer)
+    .qaComponent(          extractValue(domsHolder.qaComponentBlock),                       domsHolder.qaComponent)
+    .raComponent(          extractValue(domsHolder.raComponentBlock),                       domsHolder.raComponent)
+    .zer(                  extractValue(domsHolder.zerBlock),                               domsHolder.zer)
 
 
     // Process
@@ -88,7 +121,14 @@ function calcClickHandler() {
             errorMessage += '\n' + errs[i].message;
         }
         alert(errorMessage);
-        scrollAndFocusElement(errs[0].obj.input);
+
+        // Scroll to the first element
+        scrollAndFocusElement(errs[0].uiObj);
+
+        // Show error and open each invalid element
+        errs.forEach((err) => {
+            setFieldInvalid(err.uiObj);
+        });
     }
 
     // Show result

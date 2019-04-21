@@ -28,7 +28,7 @@ class SelectNumberFieldWrapper {
 
 
 class SelectNumberField extends SelectNumberFieldWrapper {
-    constructor(id, name, values, defaultValue, payload) {
+    constructor(id, name, values, defaultValue, payload, parent) {
         // Generate template for the field
 
         let block = document.createElement('div');
@@ -63,5 +63,9 @@ class SelectNumberField extends SelectNumberFieldWrapper {
 
 
         super(id, name, block);
+
+        if (parent) {
+            this.parent = parent;
+        }
     }
 }

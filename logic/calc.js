@@ -26,101 +26,135 @@ function anyFailed(elems, condition) {
     return false;
 }
 
+function zipToObjs(arr) {
+    return arr.value.map((value, i) => {
+        return { value: value, uiObj: arr.uiObj[i] };
+    });
+}
+
 
 class calcValuesBuilder {
     // Physical
 
-    oCapatitor(value, errObj)           { this.oCapatitor           = { value, errObj }; return this; }
-    thEl(value, errObj)                 { this.thEl                 = { value, errObj }; return this; }
-    sReference(value, errObj)           { this.sReference           = { value, errObj }; return this; }
-    eA(value, errObj)                   { this.eA                   = { value, errObj }; return this; }
-    yTCy(value, errObj)                 { this.yTCy                 = { value, errObj }; return this; }
-    nAnnualCy(value, errObj)            { this.nAnnualCy            = { value, errObj }; return this; }
-    yMech(value, errObj)                { this.yMech                = { value, errObj }; return this; }
-    placement(value, errObj)            { this.placement            = { value, errObj }; return this; }
-    sensitivity(value, errObj)          { this.sensitivity          = { value, errObj }; return this; }
-    tAnnualArr(value, errObj)           { this.tAnnualArr           = { value, errObj }; return this; }
-    vRappliedArr(value, errObj)         { this.vRappliedArr         = { value, errObj }; return this; }
-    vRatedArr(value, errObj)            { this.vRatedArr            = { value, errObj }; return this; }
-    boardAmdArr(value, errObj)          { this.boardAmdArr          = { value, errObj }; return this; }
-    oCyArr(value, errObj)               { this.oCyArr               = { value, errObj }; return this; }
-    tCyclingArr(value, errObj)          { this.tCyclingArr          = { value, errObj }; return this; }
-    maxCyclingArr(value, errObj)        { this.maxCyclingArr        = { value, errObj }; return this; }
-    gRMSArr(value, errObj)              { this.gRMSArr              = { value, errObj }; return this; }
+    oCapatitor(value, uiObj)           { this.oCapatitor           = { value, uiObj }; return this; }
+    thEl(value, uiObj)                 { this.thEl                 = { value, uiObj }; return this; }
+    sReference(value, uiObj)           { this.sReference           = { value, uiObj }; return this; }
+    eA(value, uiObj)                   { this.eA                   = { value, uiObj }; return this; }
+    yTCy(value, uiObj)                 { this.yTCy                 = { value, uiObj }; return this; }
+    nAnnualCy(value, uiObj)            { this.nAnnualCy            = { value, uiObj }; return this; }
+    yMech(value, uiObj)                { this.yMech                = { value, uiObj }; return this; }
+    placement(value, uiObj)            { this.placement            = { value, uiObj }; return this; }
+    sensitivity(value, uiObj)          { this.sensitivity          = { value, uiObj }; return this; }
+    tAnnualArr(value, uiObj)           { this.tAnnualArr           = { value, uiObj }; return this; }
+    vRappliedArr(value, uiObj)         { this.vRappliedArr         = { value, uiObj }; return this; }
+    vRatedArr(value, uiObj)            { this.vRatedArr            = { value, uiObj }; return this; }
+    boardAmdArr(value, uiObj)          { this.boardAmdArr          = { value, uiObj }; return this; }
+    oCyArr(value, uiObj)               { this.oCyArr               = { value, uiObj }; return this; }
+    tCyclingArr(value, uiObj)          { this.tCyclingArr          = { value, uiObj }; return this; }
+    maxCyclingArr(value, uiObj)        { this.maxCyclingArr        = { value, uiObj }; return this; }
+    gRMSArr(value, uiObj)              { this.gRMSArr              = { value, uiObj }; return this; }
     // Array of arrays (marks)
-    applicationPMarksArr(value, errObj) { this.applicationPMarksArr = { value, errObj }; return this; }
+    applicationPMarksArr(value, uiObj) { this.applicationPMarksArr = { value, uiObj }; return this; }
     // Array of marks
-    ruggedisingPMarks(value, errObj)    { this.ruggedisingPMarks    = { value, errObj }; return this; }
+    ruggedisingPMarks(value, uiObj)    { this.ruggedisingPMarks    = { value, uiObj }; return this; }
 
 
     //PM
 
-    qaManufacturer(value, errObj)       { this.qaManufacturer       = { value, errObj }; return this; }
-    qaComponent(value, errObj)          { this.qaComponent          = { value, errObj }; return this; }
-    raComponent(value, errObj)          { this.raComponent          = { value, errObj }; return this; }
-    zer(value, errObj)                  { this.zer                  = { value, errObj }; return this; }
+    qaManufacturer(value, uiObj)       { this.qaManufacturer       = { value, uiObj }; return this; }
+    qaComponent(value, uiObj)          { this.qaComponent          = { value, uiObj }; return this; }
+    raComponent(value, uiObj)          { this.raComponent          = { value, uiObj }; return this; }
+    zer(value, uiObj)                  { this.zer                  = { value, uiObj }; return this; }
 
 
     // Process
 
-    specificationMarks(value, errObj)   { this.specificationMarks   = { value, errObj }; return this; }
-    designMarks(value, errObj)          { this.designMarks          = { value, errObj }; return this; }
-    manufactAsemblMarks(value, errObj)  { this.manufactAsemblMarks  = { value, errObj }; return this; }
-    integrEquipMarks(value, errObj)     { this.integrEquipMarks     = { value, errObj }; return this; }
-    integrSystetMarks(value, errObj)    { this.integrSystetMarks    = { value, errObj }; return this; }
-    exploitationMarks(value, errObj)    { this.exploitationMarks    = { value, errObj }; return this; }
-    advancedMarks(value, errObj)        { this.advancedMarks        = { value, errObj }; return this; }
+    specificationMarks(value, uiObj)   { this.specificationMarks   = { value, uiObj }; return this; }
+    designMarks(value, uiObj)          { this.designMarks          = { value, uiObj }; return this; }
+    manufactAsemblMarks(value, uiObj)  { this.manufactAsemblMarks  = { value, uiObj }; return this; }
+    integrEquipMarks(value, uiObj)     { this.integrEquipMarks     = { value, uiObj }; return this; }
+    integrSystetMarks(value, uiObj)    { this.integrSystetMarks    = { value, uiObj }; return this; }
+    exploitationMarks(value, uiObj)    { this.exploitationMarks    = { value, uiObj }; return this; }
+    advancedMarks(value, uiObj)        { this.advancedMarks        = { value, uiObj }; return this; }
 }
 
 
-function calculate(values) {
-    
+function calculate(v) {
+
     // Physical
-    let oCapatitor           = values.oCapatitor.value;
-    let tAnnualArr           = values.tAnnualArr.value;
-    let thEl                 = values.thEl.value;
-    let sReference           = values.sReference.value;
-    let vRappliedArr         = values.vRappliedArr.value;
-    let vRatedArr            = values.vRatedArr.value;
-    let eA                   = values.eA.value;
-    let boardAmdArr          = values.boardAmdArr.value;
-    let yTCy                 = values.yTCy.value;
-    let nAnnualCy            = values.nAnnualCy.value;
-    let oCyArr               = values.oCyArr.value;
-    let tCyclingArr          = values.tCyclingArr.value;
-    let maxCyclingArr        = values.maxCyclingArr.value;
-    let yMech                = values.yMech.value;
-    let gRMSArr              = values.gRMSArr.value;
-    let placement            = values.placement.value;
-    let sensitivity          = values.sensitivity.value;
-    let applicationPMarksArr = values.applicationPMarksArr.value;
-    let ruggedisingPMarks    = values.ruggedisingPMarks.value;
+    let oCapatitor           = v.oCapatitor.value;
+    let tAnnualArr           = v.tAnnualArr.value;
+    let thEl                 = v.thEl.value;
+    let sReference           = v.sReference.value;
+    let vRappliedArr         = v.vRappliedArr.value;
+    let vRatedArr            = v.vRatedArr.value;
+    let eA                   = v.eA.value;
+    let boardAmdArr          = v.boardAmdArr.value;
+    let yTCy                 = v.yTCy.value;
+    let nAnnualCy            = v.nAnnualCy.value;
+    let oCyArr               = v.oCyArr.value;
+    let tCyclingArr          = v.tCyclingArr.value;
+    let maxCyclingArr        = v.maxCyclingArr.value;
+    let yMech                = v.yMech.value;
+    let gRMSArr              = v.gRMSArr.value;
+    let placement            = v.placement.value;
+    let sensitivity          = v.sensitivity.value;
+    let applicationPMarksArr = v.applicationPMarksArr.value;
+    let ruggedisingPMarks    = v.ruggedisingPMarks.value;
     // PM
-    let qaManufacturer       = values.qaManufacturer.value;
-    let qaComponent          = values.qaComponent.value;
-    let raComponent          = values.raComponent.value;
-    let zer                  = values.zer.value;
+    let qaManufacturer       = v.qaManufacturer.value;
+    let qaComponent          = v.qaComponent.value;
+    let raComponent          = v.raComponent.value;
+    let zer                  = v.zer.value;
     //Process
-    let specificationMarks   = values.specificationMarks.value;
-    let designMarks          = values.designMarks.value;
-    let manufactAsemblMarks  = values.manufactAsemblMarks.value;
-    let integrEquipMarks     = values.integrEquipMarks.value;
-    let integrSystetMarks    = values.integrSystetMarks.value;
-    let exploitationMarks    = values.exploitationMarks.value;
-    let advancedMarks        = values.advancedMarks.value;
+    let specificationMarks   = v.specificationMarks.value;
+    let designMarks          = v.designMarks.value;
+    let manufactAsemblMarks  = v.manufactAsemblMarks.value;
+    let integrEquipMarks     = v.integrEquipMarks.value;
+    let integrSystetMarks    = v.integrSystetMarks.value;
+    let exploitationMarks    = v.exploitationMarks.value;
+    let advancedMarks        = v.advancedMarks.value;
+
 
 
     // Errors array to return in case if something happened
     let errors = [];
+
+    //////////////////////////////
+    //   Check all conditions   //
+    //////////////////////////////
+
+    // All number fields should exist and should be numbers
+    [v.oCapatitor, v.thEl, v.sReference, v.eA, v.yTCy, v.nAnnualCy, v.yMech, v.placement, v.sensitivity, v.qaManufacturer, v.qaComponent, v.raComponent, v.zer]
+    .forEach((one) => {
+        if (!(typeof one.value == 'number') || isNaN(one.value)) {
+            errors.push({ uiObj: one.uiObj, message: one.uiObj.name + ' должен быть числом' });
+        }
+    });
+
+    [v.tAnnualArr, v.vRappliedArr, v.vRatedArr, v.boardAmdArr, v.oCyArr, v.tCyclingArr,v.maxCyclingArr, v.gRMSArr]
+    .forEach((arr) => {
+        zipped = zipToObjs(arr);
+        zipped.forEach((one, i) => {
+            if (!(typeof one.value == 'number') || isNaN(one.value)) {
+                errors.push({ uiObj: one.uiObj, message: one.uiObj.name + ' фазы ' + i +  ' должен быть числом' });
+            }
+        });
+    });
+
+    // Throw exception with all the errors found
+    if (errors.length > 0) {
+        throw errors;
+    }
 
     // Returning failed elem if failed, true if succeed
     let ind = anyFailed(tAnnualArr, x => x > 0);
     // Check if its exactly 'true' (without type converting)
     if (ind !== false) {
         errors.push({
-            obj: values.tAnnualArr.errObj[ind],
-            message: values.tAnnualArr.errObj[ind].name + ' должен быть больше 0'
-        });    // TODO: All errors handling
+            uiObj: v.tAnnualArr.uiObj[ind],
+            message: v.tAnnualArr.uiObj[ind].name + ' должен быть больше 0'
+        });
     }
 
     // Throw exception with all the errors found
@@ -130,6 +164,9 @@ function calculate(values) {
 
 
 
+    /////////////////////////
+    //      Calculate      //
+    /////////////////////////
 
     let phasesArr = Array.from(domsHolder.phaseBlocks.keys());
 

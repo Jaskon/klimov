@@ -20,6 +20,7 @@ class PhaseBlock {
         header.classList.add('card-header', 'text-center', 'link');
         header.setAttribute('data-toggle', 'collapse');
         header.setAttribute('data-target', '#' + block.id + 'body');
+        header.setAttribute('aria-expanded', 'true');
         header.innerHTML = 'Переменные фазы ' + (index + 1);
         block.appendChild(header);
 
@@ -35,7 +36,7 @@ class PhaseBlock {
 
 
         values.forEach(one => {
-            let field = generateField(one, index);
+            let field = generateField(one, index, this);
             this[one.id] = field;
             body.appendChild(field.dom);
         });
@@ -43,6 +44,20 @@ class PhaseBlock {
 
         this.dom = block;
         this.phase = index;    // To remove possibility
+        this.bodyCollapseWrapper = bodyCollapseWrapper;
+        this.headerCollapseWrapper = header;
+    }
+
+
+    // Return status: true - state changed
+    collapse(open = true) {
+        if ((open && $(this.headerCollapseWrapper).attr('aria-expanded') === 'true') ||
+            (!open && $(this.headerCollapseWrapper).attr('aria-expanded') === 'false'))
+        {
+            return false;
+        }
+        $(this.bodyCollapseWrapper).collapse(open ? 'show' : 'hide');
+        return true;
     }
 
 

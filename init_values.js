@@ -238,7 +238,7 @@ const initValues = [
 
     {
         type: FieldTypes.SelectNumber,
-        id: 'qaManufacturer',
+        id: 'qaManufacturerBlock',
 
         name: 'Уровень обеспечения качества производителя',
         values: [
@@ -252,7 +252,7 @@ const initValues = [
 
     {
         type: FieldTypes.SelectNumber,
-        id: 'qaComponent',
+        id: 'qaComponentBlock',
 
         name: 'Уровень обеспечения качества компонентов',
         values: [
@@ -266,7 +266,7 @@ const initValues = [
 
     {
         type: FieldTypes.SelectNumber,
-        id: 'raComponent',
+        id: 'raComponentBlock',
 
         name: 'Уровень обеспечения качества производителя',
         values: [
@@ -280,7 +280,7 @@ const initValues = [
 
     {
         type: FieldTypes.SelectNumber,
-        id: 'zer',
+        id: 'zerBlock',
 
         name: 'Уровень обеспечения качества производителя',
         values: [

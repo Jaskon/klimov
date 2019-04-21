@@ -24,8 +24,8 @@ class InputNumberFieldWrapper {
 
 
 class InputNumberField extends InputNumberFieldWrapper {
-    constructor(id, name, defaultValue, placeholder, payload) {
-        // TODO: Generate template for field
+    constructor(id, name, defaultValue, placeholder, payload, parent) {
+        // Generate template for field
 
         let block = document.createElement('div');
         block.id = id;
@@ -42,7 +42,7 @@ class InputNumberField extends InputNumberFieldWrapper {
         let input = document.createElement('input');
         input.classList.add('form-control');
         input.setAttribute('data-input-type', 'number');
-        input.pattern = '^-?\\d+(?:.\\d+)?$';
+        // input.pattern = '^-?\\d+(?:.\\d+)?$';
         input.value = (defaultValue ? defaultValue : '');
         input.placeholder = (placeholder ? placeholder : '');
         div.appendChild(input);
@@ -54,5 +54,9 @@ class InputNumberField extends InputNumberFieldWrapper {
 
 
         super(id, name, block);
+
+        if (parent) {
+            this.parent = parent;
+        }
     }
 }

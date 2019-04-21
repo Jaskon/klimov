@@ -13,6 +13,20 @@ domsHolder = {
     placementBlock: undefined,
     ruggedisingBlock: undefined,
     sensitivityBlock: undefined,
+    ruggedisingPMarksBlock: undefined,
+
+    qaManufacturer: undefined,
+    qaComponent: undefined,
+    raComponent: undefined,
+    zer: undefined,
+
+    specificationMarksBlock: undefined,
+    designMarksBlock: undefined,
+    manufactAsemblMarksBlock: undefined,
+    integrEquipMarksBlock: undefined,
+    integrSystetMarksBlock: undefined,
+    exploitationMarksBlock: undefined,
+    advancedMarksBlock: undefined,
 
     phaseBlocks: [
         // One phase block should contain:
@@ -24,7 +38,6 @@ domsHolder = {
         // tCyclingBlock
         // maxCyclingBlock
         // gRMSBlock
-        // applicationBlock
         // phase    // Meta field! Not from init values
     ]
 }

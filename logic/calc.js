@@ -32,6 +32,15 @@ function zipToObjs(arr) {
     });
 }
 
+// For generize
+function pushErr(errors, uiObj, message) {
+    errors.push({ uiObj, message });
+}
+
+function isNumber(value) {
+    return !(!(typeof value == 'number') || isNaN(value));
+}
+
 
 class calcValuesBuilder {
     // Physical
@@ -117,29 +126,54 @@ function calculate(v) {
 
 
 
+
+
     // Errors array to return in case if something happened
     let errors = [];
+
 
     //////////////////////////////
     //   Check all conditions   //
     //////////////////////////////
 
+
     // All number fields should exist and should be numbers
-    [v.oCapatitor, v.thEl, v.sReference, v.eA, v.yTCy, v.nAnnualCy, v.yMech, v.placement, v.sensitivity, v.qaManufacturer, v.qaComponent, v.raComponent, v.zer]
-    .forEach((one) => {
-        if (!(typeof one.value == 'number') || isNaN(one.value)) {
-            errors.push({ uiObj: one.uiObj, message: one.uiObj.name + ' должен быть числом' });
-        }
-    });
+    if (!isNumber(oCapatitor)) {     pushErr(errors, v.oCapatitor.uiObj,     v.oCapatitor.uiObj.name + ' должна быть числом')     }
+    if (!isNumber(thEl)) {           pushErr(errors, v.thEl.uiObj,           v.thEl.uiObj.name + ' должна быть числом')           }
+    if (!isNumber(sReference)) {     pushErr(errors, v.sReference.uiObj,     v.sReference.uiObj.name + ' должен быть числом')     }
+    if (!isNumber(eA)) {             pushErr(errors, v.eA.uiObj,             v.eA.uiObj.name + ' должна быть числом')             }
+    if (!isNumber(yTCy)) {           pushErr(errors, v.yTCy.uiObj,           v.yTCy.uiObj.name + ' должен быть числом')           }
+    if (!isNumber(nAnnualCy)) {      pushErr(errors, v.nAnnualCy.uiObj,      v.nAnnualCy.uiObj.name + ' должно быть числом')      }
+    if (!isNumber(yMech)) {          pushErr(errors, v.yMech.uiObj,          v.yMech.uiObj.name + ' должна быть числом')          }
+    if (!isNumber(sensitivity)) {    pushErr(errors, v.sensitivity.uiObj,    v.sensitivity.uiObj.name + ' должен быть числом')    }
+    if (!isNumber(qaManufacturer)) { pushErr(errors, v.qaManufacturer.uiObj, v.qaManufacturer.uiObj.name + ' должен быть числом') }
+    if (!isNumber(qaComponent)) {    pushErr(errors, v.qaComponent.uiObj,    v.qaComponent.uiObj.name + ' должен быть числом')    }
+    if (!isNumber(raComponent)) {    pushErr(errors, v.raComponent.uiObj,    v.raComponent.uiObj.name + ' должен быть числом')    }
+    if (!isNumber(zer)) {            pushErr(errors, v.zer.uiObj,            v.zer.uiObj.name + ' должен быть числом')            }
 
-    [v.tAnnualArr, v.vRappliedArr, v.vRatedArr, v.boardAmdArr, v.oCyArr, v.tCyclingArr,v.maxCyclingArr, v.gRMSArr]
-    .forEach((arr) => {
-        zipped = zipToObjs(arr);
-        zipped.forEach((one, i) => {
-            if (!(typeof one.value == 'number') || isNaN(one.value)) {
-                errors.push({ uiObj: one.uiObj, message: one.uiObj.name + ' фазы ' + i +  ' должен быть числом' });
-            }
-        });
+    zipToObjs(v.tAnnualArr).forEach((one, i) => {
+        if (!isNumber(one.value)) { pushErr(errors, one.uiObj, one.uiObj.name + ' фазы ' + (i+1) +  ' должна быть числом') }
+    });
+    zipToObjs(v.vRappliedArr).forEach((one, i) => {
+        if (!isNumber(one.value)) { pushErr(errors, one.uiObj, one.uiObj.name + ' фазы ' + (i+1) +  ' должно быть числом') }
+    });
+    zipToObjs(v.vRatedArr).forEach((one, i) => {
+        if (!isNumber(one.value)) { pushErr(errors, one.uiObj, one.uiObj.name + ' фазы ' + (i+1) +  ' должно быть числом') }
+    });
+    zipToObjs(v.boardAmdArr).forEach((one, i) => {
+        if (!isNumber(one.value)) { pushErr(errors, one.uiObj, one.uiObj.name + ' фазы ' + (i+1) +  ' должна быть числом') }
+    });
+    zipToObjs(v.oCyArr).forEach((one, i) => {
+        if (!isNumber(one.value)) { pushErr(errors, one.uiObj, one.uiObj.name + ' фазы ' + (i+1) +  ' должна быть числом') }
+    });
+    zipToObjs(v.tCyclingArr).forEach((one, i) => {
+        if (!isNumber(one.value)) { pushErr(errors, one.uiObj, one.uiObj.name + ' фазы ' + (i+1) +  ' должна быть числом') }
+    });
+    zipToObjs(v.maxCyclingArr).forEach((one, i) => {
+        if (!isNumber(one.value)) { pushErr(errors, one.uiObj, one.uiObj.name + ' фазы ' + (i+1) +  ' должна быть числом') }
+    });
+    zipToObjs(v.gRMSArr).forEach((one, i) => {
+        if (!isNumber(one.value)) { pushErr(errors, one.uiObj, one.uiObj.name + ' фазы ' + (i+1) +  ' должно быть числом') }
     });
 
     // Throw exception with all the errors found
@@ -147,26 +181,34 @@ function calculate(v) {
         throw errors;
     }
 
-    // Returning failed elem if failed, true if succeed
-    let ind = anyFailed(tAnnualArr, x => x > 0);
-    // Check if its exactly 'true' (without type converting)
-    if (ind !== false) {
-        errors.push({
-            uiObj: v.tAnnualArr.uiObj[ind],
-            message: v.tAnnualArr.uiObj[ind].name + ' должен быть больше 0'
-        });
-    }
+    // tAnnual > 0
+    zipToObjs(v.tAnnualArr).forEach((one, i) => {
+        if (one.value <= 0) { pushErr(errors, one.uiObj, one.uiObj.name + ' ' + (i+1) + ' должна быть больше нуля') }
+    });
+
+    // Should not be 0
+    if (sReference === 0) { pushErr(errors, sReference, one.uiObj.name + ' не может быть равен нулю') }
+
+    zipToObjs(v.vRatedArr).forEach((one, i) => {
+        if (one.value === 0) { pushErr(errors, one.uiObj, one.uiObj.name + ' фазы ' + (i+1) + ' не может быть равно нулю') }
+    });
+    zipToObjs(v.boardAmdArr).forEach((one, i) => {
+        if (one.value === 0) { pushErr(errors, one.uiObj, one.uiObj.name + ' фазы ' + (i+1) + ' не может быть равна нулю') }
+    });
 
     // Throw exception with all the errors found
     if (errors.length > 0) {
         throw errors;
     }
+
+
 
 
 
     /////////////////////////
     //      Calculate      //
     /////////////////////////
+
 
     let phasesArr = Array.from(domsHolder.phaseBlocks.keys());
 

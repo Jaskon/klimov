@@ -121,7 +121,7 @@ const initValues = [
         type: FieldTypes.InputNumber,
         id:'oCapacitorBlock',
 
-        name: 'oCapacitorBlock',
+        name: 'Конденсаторная постоянная',
         defaultValue: '1'
     },
 
@@ -129,7 +129,7 @@ const initValues = [
         type: FieldTypes.InputNumber,
         id:'thElBlock',
 
-        name: 'thElBlock',
+        name: 'Теплоэлектрическая постоянная',
         defaultValue: '1'
     },
 
@@ -137,7 +137,7 @@ const initValues = [
         type: FieldTypes.InputNumber,
         id:'sReferenceBlock',
 
-        name: 'sReferenceBlock',
+        name: 'Контрольный уровень для электрического напряжения',
         defaultValue: '1'
     },
 
@@ -145,7 +145,7 @@ const initValues = [
         type: FieldTypes.InputNumber,
         id:'eABlock',
 
-        name: 'eABlock',
+        name: 'Энергия активации',
         defaultValue: '1'
     },
 
@@ -161,7 +161,7 @@ const initValues = [
         type: FieldTypes.InputNumber,
         id:'nAnnualCyBlock',
 
-        name: 'nAnnualCyBlock',
+        name: 'Количество циклов, связанных с каждой фазой цикла в течение года',
         defaultValue: '1'
     },
 
@@ -169,7 +169,7 @@ const initValues = [
         type: FieldTypes.InputNumber,
         id:'yMechBlock',
 
-        name: 'yMechBlock',
+        name: 'Механическая постоянная',
         defaultValue: '1'
     },
 
@@ -177,7 +177,7 @@ const initValues = [
         type: FieldTypes.SelectNumber,
         id:'placementBlock',
 
-        name: 'placementBlock',
+        name: 'Влияние размещения элемента в оборудовании',
         values: [
             { value: '1.0', text: 'Цифровая неинтерфейсная функция' },
             { value: '1.6', text: 'Цифровая интерфейсная функция' },
@@ -194,7 +194,7 @@ const initValues = [
         type: FieldTypes.InputNumber,
         id:'sensitivityBlock',
 
-        name: 'sensitivityBlock',
+        name: 'Коэффициент чувствительности к перенапряжениям',
         defaultValue: '1'
     },
 
@@ -2286,7 +2286,7 @@ const phaseDependentValues = [
         type: FieldTypes.InputNumber,
         id: 'tAnnualBlock',
 
-        name: 'tAnnualBlock1111111111111111111111111111111111111111111111',
+        name: 'Годовая продолжительность фазы',
         defaultValue: '1'
     },
 
@@ -2294,7 +2294,7 @@ const phaseDependentValues = [
         type: FieldTypes.InputNumber,
         id: 'vRappliedBlock',
 
-        name: 'vRappliedBlock',
+        name: 'Рабочее напряжение',
         defaultValue: '1'
     },
 
@@ -2302,7 +2302,7 @@ const phaseDependentValues = [
         type: FieldTypes.InputNumber,
         id: 'vRatedBlock',
 
-        name: 'vRatedBlock',
+        name: 'Номинальное напряжение',
         defaultValue: '1'
     },
 
@@ -2310,7 +2310,7 @@ const phaseDependentValues = [
         type: FieldTypes.InputNumber,
         id: 'boardAmdBlock',
 
-        name: 'boardAmdBlock',
+        name: 'Средняя температура платы во время фазы',
         defaultValue: '1'
     },
 
@@ -2318,7 +2318,7 @@ const phaseDependentValues = [
         type: FieldTypes.InputNumber,
         id: 'oCyBlock',
 
-        name: 'oCyBlock',
+        name: 'Продолжительность цикла',
         defaultValue: '1'
     },
 
@@ -2326,7 +2326,7 @@ const phaseDependentValues = [
         type: FieldTypes.InputNumber,
         id: 'tCyclingBlock',
 
-        name: 'tCyclingBlock',
+        name: 'Амплитуда колебаний, связанных с циклической фазой',
         defaultValue: '1'
     },
 
@@ -2334,7 +2334,7 @@ const phaseDependentValues = [
         type: FieldTypes.InputNumber,
         id: 'maxCyclingBlock',
 
-        name: 'maxCyclingBlock',
+        name: 'Максимальная температура платы во время фазы',
         defaultValue: '1'
     },
 
@@ -2342,7 +2342,7 @@ const phaseDependentValues = [
         type: FieldTypes.InputNumber,
         id: 'gRMSBlock',
 
-        name: 'gRMSBlock',
+        name: 'Напряжение, связанное с каждой фазой случайной вибрации',
         defaultValue: '1'
     },
 

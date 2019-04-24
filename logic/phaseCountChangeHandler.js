@@ -30,7 +30,7 @@ function generatePhaseBlock(phaseDependentValues, index, domsHolder) {
 }
 
 function removePhaseBlock(index, domsHolder) {
-    let pos = findByPhase(domsHolder.phaseBlocks, index);
+    let pos = helpers.findByPhase(domsHolder.phaseBlocks, index);
     domsHolder.phaseBlocks[pos].remove();    // Remove method of *block class
     domsHolder.phaseBlocks.splice(pos, 1);
 }

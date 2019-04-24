@@ -6,8 +6,10 @@
 
     <!-- Bootstrap and deps -->
     <link rel="stylesheet" type="text/css" href="libs/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="libs/bootstrap-select.min.css">
     <script type="text/javascript" src="libs/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="libs/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="libs/bootstrap-select.min.js"></script>
 
     <!-- Our scripts -->
     <!-- Logic -->
@@ -21,8 +23,8 @@
     <script type="text/javascript" src="Doms/FieldFabric.js"></script>
     <script type="text/javascript" src="Doms/PhaseBlock.js"></script>
     <script type="text/javascript" src="Doms/PMarksBlock.js"></script>
-    <script type="text/javascript" src="Doms/InputNumberField.js"></script>
-    <script type="text/javascript" src="Doms/SelectNumberField.js"></script>
+    <script type="text/javascript" src="Doms/InputField.js"></script>
+    <script type="text/javascript" src="Doms/SelectField.js"></script>
     <script type="text/javascript" src="formulas/Physical.js"></script>
     <script type="text/javascript" src="formulas/PM.js"></script>
     <script type="text/javascript" src="formulas/Process.js"></script>
@@ -52,6 +54,7 @@
                 </div>
             </div>
         </div>
+
 
         <!-- One-field inputs -->
         <div id="oneFieldBlocksContainer" class="one-field-blocks-container">
@@ -90,6 +93,7 @@
                 }
 
                 var event = new Event('input');
+                event.target = input;
                 input.dispatchEvent(event);
             });
         });
@@ -112,9 +116,71 @@
                 }
 
                 var event = new Event('input');
+                event.target = input;
                 input.dispatchEvent(event);
             });
         });
+
+
+        // Enable bootstrap tooltips
+
+        $('[data-toggle="tooltip"]').tooltip();
+
+        setTimeout(() => {
+            // Initialize beautiful select
+            $('select').selectpicker()
+            .on('shown.bs.select', function(e){
+        
+                // save the element
+                const $el = $(this);
+        
+                // the list items with the options
+                const $lis = $el.data('selectpicker').$newElement.find('li');
+        
+                $lis.each(function(i) {
+        
+                    // get the title from the option
+                    const option = $el.find('option').eq(i);
+        
+                    if (option.attr('data-title')) {
+                        $(this).tooltip({
+                            title: option.attr('data-title'),
+                            placement: 'top',
+                            boundary: 'window'
+                        });
+                    }
+
+                    // $(this)[0].setAttribute('data-toggle', 'tooltip');
+                    // $(this)[0].setAttribute('title', option.attr('data-title'));
+                    // $(this)[0].setAttribute('data-placement', 'bottom');
+                    // $(this)[0].setAttribute('data-container', 'body');
+                    // $(this)[0].setAttribute('data-selector', 'select');
+
+                    // $('[data-toggle="tooltip"]').tooltip();
+        
+                });
+        
+            });
+        });
+
+
+
+        // setTimeout(() => {
+        //     $('select').selectpicker();
+        //     $('select').selectpicker('refresh');
+        // }, 100);
+
+        // setTimeout(() => {
+        //     var $lis = Array.from(document.getElementById('componentTypeBlock').getElementsByTagName('li'));
+        //     var options = Array.from(document.getElementById('componentTypeBlock').getElementsByTagName('option'));
+    
+        //     $lis.forEach(function(i, ind) {
+
+        //         i.setAttribute('title', options[ind].getAttribute('data-title'));
+        //         i.setAttribute('data-conteiner', 'body');
+    
+        //     });
+        // }, 2000);
     </script>
 
 

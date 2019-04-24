@@ -45,7 +45,7 @@ function isNumber(value) {
 class calcValuesBuilder {
     // Physical
 
-    oCapatitor(value, uiObj)           { this.oCapatitor           = { value, uiObj }; return this; }
+    oCapacitor(value, uiObj)           { this.oCapacitor           = { value, uiObj }; return this; }
     thEl(value, uiObj)                 { this.thEl                 = { value, uiObj }; return this; }
     sReference(value, uiObj)           { this.sReference           = { value, uiObj }; return this; }
     eA(value, uiObj)                   { this.eA                   = { value, uiObj }; return this; }
@@ -72,7 +72,6 @@ class calcValuesBuilder {
 
     qaManufacturer(value, uiObj)       { this.qaManufacturer       = { value, uiObj }; return this; }
     qaComponent(value, uiObj)          { this.qaComponent          = { value, uiObj }; return this; }
-    raComponent(value, uiObj)          { this.raComponent          = { value, uiObj }; return this; }
     zer(value, uiObj)                  { this.zer                  = { value, uiObj }; return this; }
 
 
@@ -91,7 +90,7 @@ class calcValuesBuilder {
 function calculate(v) {
 
     // Physical
-    let oCapatitor           = v.oCapatitor.value;
+    let oCapacitor           = v.oCapacitor.value;
     let tAnnualArr           = v.tAnnualArr.value;
     let thEl                 = v.thEl.value;
     let sReference           = v.sReference.value;
@@ -113,7 +112,6 @@ function calculate(v) {
     // PM
     let qaManufacturer       = v.qaManufacturer.value;
     let qaComponent          = v.qaComponent.value;
-    let raComponent          = v.raComponent.value;
     let zer                  = v.zer.value;
     //Process
     let specificationMarks   = v.specificationMarks.value;
@@ -138,19 +136,7 @@ function calculate(v) {
 
 
     // All number fields should exist and should be numbers
-    if (!isNumber(oCapatitor)) {     pushErr(errors, v.oCapatitor.uiObj,     v.oCapatitor.uiObj.name + ' должна быть числом')     }
-    if (!isNumber(thEl)) {           pushErr(errors, v.thEl.uiObj,           v.thEl.uiObj.name + ' должна быть числом')           }
-    if (!isNumber(sReference)) {     pushErr(errors, v.sReference.uiObj,     v.sReference.uiObj.name + ' должен быть числом')     }
-    if (!isNumber(eA)) {             pushErr(errors, v.eA.uiObj,             v.eA.uiObj.name + ' должна быть числом')             }
-    if (!isNumber(yTCy)) {           pushErr(errors, v.yTCy.uiObj,           v.yTCy.uiObj.name + ' должен быть числом')           }
     if (!isNumber(nAnnualCy)) {      pushErr(errors, v.nAnnualCy.uiObj,      v.nAnnualCy.uiObj.name + ' должно быть числом')      }
-    if (!isNumber(yMech)) {          pushErr(errors, v.yMech.uiObj,          v.yMech.uiObj.name + ' должна быть числом')          }
-    if (!isNumber(sensitivity)) {    pushErr(errors, v.sensitivity.uiObj,    v.sensitivity.uiObj.name + ' должен быть числом')    }
-    if (!isNumber(qaManufacturer)) { pushErr(errors, v.qaManufacturer.uiObj, v.qaManufacturer.uiObj.name + ' должен быть числом') }
-    if (!isNumber(qaComponent)) {    pushErr(errors, v.qaComponent.uiObj,    v.qaComponent.uiObj.name + ' должен быть числом')    }
-    if (!isNumber(raComponent)) {    pushErr(errors, v.raComponent.uiObj,    v.raComponent.uiObj.name + ' должен быть числом')    }
-    if (!isNumber(zer)) {            pushErr(errors, v.zer.uiObj,            v.zer.uiObj.name + ' должен быть числом')            }
-
     zipToObjs(v.tAnnualArr).forEach((one, i) => {
         if (!isNumber(one.value)) { pushErr(errors, one.uiObj, one.uiObj.name + ' фазы ' + (i+1) +  ' должна быть числом') }
     });
@@ -186,15 +172,14 @@ function calculate(v) {
         if (one.value <= 0) { pushErr(errors, one.uiObj, one.uiObj.name + ' ' + (i+1) + ' должна быть больше нуля') }
     });
 
-    // Should not be 0
-    if (sReference === 0) { pushErr(errors, sReference, one.uiObj.name + ' не может быть равен нулю') }
-
     zipToObjs(v.vRatedArr).forEach((one, i) => {
-        if (one.value === 0) { pushErr(errors, one.uiObj, one.uiObj.name + ' фазы ' + (i+1) + ' не может быть равно нулю') }
+        if (one.value > 0) { pushErr(errors, one.uiObj, one.uiObj.name + ' фазы ' + (i+1) + ' должно быть больше нуля') }
     });
     zipToObjs(v.boardAmdArr).forEach((one, i) => {
-        if (one.value === 0) { pushErr(errors, one.uiObj, one.uiObj.name + ' фазы ' + (i+1) + ' не может быть равна нулю') }
+        if (one.value > 0) { pushErr(errors, one.uiObj, one.uiObj.name + ' фазы ' + (i+1) + ' должна быть больше нуля') }
     });
+    // TODO: All other > 0
+    // TODO: Temperatures - between
 
     // Throw exception with all the errors found
     if (errors.length > 0) {
@@ -252,7 +237,7 @@ function calculate(v) {
 
 
     let physical = calcPhysical(
-        oCapatitor,
+        oCapacitor,
         tAnnualArr,
         thermoElectroArr,
         tCyArr,
@@ -262,7 +247,7 @@ function calculate(v) {
 
 
 
-    let partGrade = calcPartGrade(qaManufacturer, qaComponent, raComponent, zer);
+    let partGrade = calcPartGrade(qaManufacturer, qaComponent, zer);
 
 
     let pM = calcPM(
@@ -280,9 +265,9 @@ function calculate(v) {
         { contributionPhase: 0.18, marks: advancedMarks }
     ];
 
-    // 0.08 * (calcAuditMark(specificationMarks) / calcMaxAuditMark(specificationMarks[0].pos, extractOneField(specificationMarks, 'value')));
+    // 0.08 * (calcAuditMark(specificationMarks) / calcMaxAuditMark(specificationMarks[0].pos, helpers.extractOneField(specificationMarks, 'value')));
     let processGrade = processGradeMarksArray.reduce((accum, one) => {
-        let sum = one.contributionPhase * (calcAuditMark(one.marks) / calcMaxAuditMark(one.marks[0].pos, extractOneField(one.marks, 'value')));
+        let sum = one.contributionPhase * (calcAuditMark(one.marks) / calcMaxAuditMark(one.marks[0].pos, helpers.extractOneField(one.marks, 'value')));
         return accum + sum;
     }, 0);
 

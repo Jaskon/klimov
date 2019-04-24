@@ -3,6 +3,6 @@ function calcPM(partGrade) {
 }
 
 
-function calcPartGrade(qaManufacturer, qaComponent, raComponent, zer) {
-    return ((qaManufacturer + qaComponent + raComponent) * zer) / 24;
+function calcPartGrade(qaManufacturer, qaComponent, zer) {
+    return ((qaManufacturer + qaComponent) * zer) / 24;
 }

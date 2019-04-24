@@ -66,15 +66,16 @@ function calcClickHandler() {
 
     // Physical
 
-    .oCapatitor(           extractValue(domsHolder.oCapacitorBlock),                        domsHolder.oCapacitorBlock)
-    .thEl(                 extractValue(domsHolder.thElBlock),                              domsHolder.thElBlock)
-    .sReference(           extractValue(domsHolder.sReferenceBlock),                        domsHolder.sReferenceBlock)
-    .eA(                   extractValue(domsHolder.eABlock),                                domsHolder.eABlock)
-    .yTCy(                 extractValue(domsHolder.yTCyBlock),                              domsHolder.yTCyBlock)
+    .oCapacitor(           extractValue(domsHolder.componentTypeBlock).oCapacitor,          domsHolder.componentTypeBlock)
+    .thEl(                 extractValue(domsHolder.componentTypeBlock).eA,                  domsHolder.componentTypeBlock)
+    .sReference(           extractValue(domsHolder.componentTypeBlock).sReference,          domsHolder.componentTypeBlock)
+    .eA(                   extractValue(domsHolder.componentTypeBlock).thEl,                domsHolder.componentTypeBlock)
+    .yTCy(                 extractValue(domsHolder.componentTypeBlock).yTCy,                domsHolder.componentTypeBlock)
+    .yMech(                extractValue(domsHolder.componentTypeBlock).yMech,               domsHolder.componentTypeBlock)
+    .sensitivity(          extractValue(domsHolder.componentTypeBlock).sensitivity,         domsHolder.componentTypeBlock)
+
     .nAnnualCy(            extractValue(domsHolder.nAnnualCyBlock),                         domsHolder.nAnnualCyBlock)
-    .yMech(                extractValue(domsHolder.yMechBlock),                             domsHolder.yMechBlock)
     .placement(            extractValue(domsHolder.placementBlock),                         domsHolder.placementBlock)
-    .sensitivity(          extractValue(domsHolder.sensitivityBlock),                       domsHolder.sensitivityBlock)
     .ruggedisingPMarks(    extractValue(domsHolder.ruggedisingPMarksBlock),                 domsHolder.ruggedisingPMarksBlock)
 
     .tAnnualArr(           extractValues(domsHolder.phaseBlocks, 'tAnnualBlock'),           extractBlocks(domsHolder.phaseBlocks, 'tAnnualBlock'))
@@ -92,7 +93,6 @@ function calcClickHandler() {
 
     .qaManufacturer(       extractValue(domsHolder.qaManufacturerBlock),                    domsHolder.qaManufacturer)
     .qaComponent(          extractValue(domsHolder.qaComponentBlock),                       domsHolder.qaComponent)
-    .raComponent(          extractValue(domsHolder.raComponentBlock),                       domsHolder.raComponent)
     .zer(                  extractValue(domsHolder.zerBlock),                               domsHolder.zer)
 
 
@@ -132,8 +132,6 @@ function calcClickHandler() {
     }
 
     // Show result
-    if (res) {
-        console.log(res);
-        window.alert(res);
-    }
+    console.log(res);
+    window.alert(res + ' отказ/час');
 }

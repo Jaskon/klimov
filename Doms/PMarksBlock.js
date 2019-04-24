@@ -42,7 +42,7 @@ class PMarksBlock {
         return this.inputs.reduce((accum, input) => {
             accum.push({
                 value: +input.value,
-                pos: +getDataAttribute(input, 'pos')
+                pos: +helpers.getDataAttribute(input, 'pos')
             });
             return accum;
         }, []);

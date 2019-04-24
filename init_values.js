@@ -3,6 +3,7 @@ const FieldTypes = {
     InputNumber: 1,
     // Select: 2,
     SelectNumber: 3,
+    SelectJson: 4,
 
     PMarksBlock: 10
 }
@@ -35,10 +36,17 @@ const FieldTypes = {
 
 
 /*
-    Select
+    SelectJson
 
     {
-        Not implemented
+        type: FieldTypes.SelectJson,
+        id: String,
+
+        name: String,
+        values: [
+            { value: Object, text: String, tooltip: String }
+        ],
+        tooltip: String
     }
 */
 
@@ -52,10 +60,10 @@ const FieldTypes = {
 
         name: String,
         values: [
-            { value: String, text: String }
+            { value: String, text: String, tooltip: String }
         ],
-        defaultValue: String,
-        isNumber?: boolean = false
+        defaultValue?: String,
+        tooltip: String
     }
 */
 
@@ -117,44 +125,77 @@ const initValues = [
 
 
 
+    // {
+    //     type: FieldTypes.InputNumber,
+    //     id:'oCapacitorBlock',
+
+    //     name: 'Конденсаторная постоянная',
+    //     defaultValue: '1'
+    // },
+
+    // {
+    //     type: FieldTypes.InputNumber,
+    //     id:'thElBlock',
+
+    //     name: 'Теплоэлектрическая постоянная',
+    //     defaultValue: '1'
+    // },
+
+    // {
+    //     type: FieldTypes.InputNumber,
+    //     id:'sReferenceBlock',
+
+    //     name: 'Контрольный уровень для электрического напряжения',
+    //     defaultValue: '1'
+    // },
+
+    // {
+    //     type: FieldTypes.InputNumber,
+    //     id:'eABlock',
+
+    //     name: 'Энергия активации',
+    //     defaultValue: '1'
+    // },
+
+    // {
+    //     type: FieldTypes.InputNumber,
+    //     id:'yTCyBlock',
+
+    //     name: 'Коэффициент температурного цикла',
+    //     defaultValue: '1'
+    // },
+
+    // {
+    //     type: FieldTypes.InputNumber,
+    //     id:'yMechBlock',
+
+    //     name: 'Механическая постоянная',
+    //     defaultValue: '1'
+    // },
+
+    // {
+    //     type: FieldTypes.InputNumber,
+    //     id:'sensitivityBlock',
+
+    //     name: 'Коэффициент чувствительности к перенапряжениям',
+    //     defaultValue: '1'
+    // },
+
     {
-        type: FieldTypes.InputNumber,
-        id:'oCapacitorBlock',
+        type: FieldTypes.SelectJson,
+        id: 'componentTypeBlock',
 
-        name: 'Конденсаторная постоянная',
-        defaultValue: '1'
-    },
-
-    {
-        type: FieldTypes.InputNumber,
-        id:'thElBlock',
-
-        name: 'Теплоэлектрическая постоянная',
-        defaultValue: '1'
-    },
-
-    {
-        type: FieldTypes.InputNumber,
-        id:'sReferenceBlock',
-
-        name: 'Контрольный уровень для электрического напряжения',
-        defaultValue: '1'
-    },
-
-    {
-        type: FieldTypes.InputNumber,
-        id:'eABlock',
-
-        name: 'Энергия активации',
-        defaultValue: '1'
-    },
-
-    {
-        type: FieldTypes.InputNumber,
-        id:'yTCyBlock',
-
-        name: 'Коэффициент температурного цикла',
-        defaultValue: '1'
+        name: 'Тип компонента',
+        values: [
+            {
+                value: { oCapacitor: 0.21, eA: 0.40, sReference: 0.5,  thEl: 0.85, yTCy: 0.14, yMech: 0.01, sensitivity: 6.40 },
+                text: 'Алюминиевый конденсатор с жидким электролитом'
+            },
+            {
+                value: { oCapacitor: 0.40, eA: 0.40, sReference: 0.55, thEl: 0.85, yTCy: 0.14, yMech: 0.01, sensitivity: 6.40 },
+                text: 'Алюминиевый конденсатор с твёрдым электролитом'
+            }
+        ]
     },
 
     {
@@ -162,14 +203,6 @@ const initValues = [
         id:'nAnnualCyBlock',
 
         name: 'Количество циклов, связанных с каждой фазой цикла в течение года',
-        defaultValue: '1'
-    },
-
-    {
-        type: FieldTypes.InputNumber,
-        id:'yMechBlock',
-
-        name: 'Механическая постоянная',
         defaultValue: '1'
     },
 
@@ -187,15 +220,20 @@ const initValues = [
             { value: '2.5', text: 'Аналоговая силовая интерфейсная функция' }
         ],
         defaultValue: '1.0',
-        isNumber: true
-    },
+        tooltip: `Для определения placement необходимо ответить на два вопроса.
+        1. Интерфейс или не интерфейс?
 
-    {
-        type: FieldTypes.InputNumber,
-        id:'sensitivityBlock',
+        Интерфейс - это соединение, которое обеспечивает взаимосвязь между двумя системами. Концепция интерфейса должна рассматриваться с электрической точки зрения. Концепция очень зависит от архитектуры, в которой работает продукт. Элемент должен рассматриваться как «интерфейс», если он более подвержен случайным электрическим воздействиям из-за своего положения в системе. Элементы, которые устанавливают связь между оборудованием и внешними системами, являются интерфейсными функциями.
+        
+        Зачастую в электронной сборке компоненты интерфейса классифицируются как защита (например, транзистор или транзорбор), фильтры (например, индукторы, резисторы или конденсаторы) или изоляция (например, оптопары). Компоненты интерфейса часто электрически близки к разъему.
 
-        name: 'Коэффициент чувствительности к перенапряжениям',
-        defaultValue: '1'
+        2. Цифровой, аналоговый низкий уровень, аналоговая мощность?
+        
+        Цифровые функции обычно легко идентифицировать.
+
+        Пороговое значение между аналоговым низким уровнем и аналоговой мощностью приблизительно соответствует току 1А. Но другие факторы могут влиять на выбор placement, как напряжение и особенно тип функции: 
+        - В руководстве FIDES аналоговыми функциями низкого уровня являются, в основном, дискретные входы/выходы, измерительные сигналы и аналоговая логика
+        - Силовые функции - это в основном источники питания, силовые передачи.`
     },
 
 
@@ -352,10 +390,14 @@ const initValues = [
 
         name: 'Уровень обеспечения качества производителя',
         values: [
-            { value: '3', text: 'Высокий' },
-            { value: '2', text: 'Эквивалентный' },
-            { value: '1', text: 'Низкий' },
-            { value: '0', text: 'Очень низкий' }
+            { value: '3', text: 'Высокий', tooltip: 'Сертифицированный ISO / TS16949 V2002' },
+            { value: '2', text: 'Эквивалентный', tooltip: `Сертифицировано по одному из следующих стандартов:
+                                                            QS9000, TL9000, ISO / TS 29001, EN9100, AS9100,
+                                                            JISQ 9100, AQAP 2110, AQAP 2120, AQAP 2130, IRIS,
+                                                            IEC TS 62239, ESA / ECSS QPL, MIL-PRF-38535 QML,
+                                                            MIL-PRF-19500` },
+            { value: '1', text: 'Низкий', tooltip: 'ISO 9000 версия 2000 сертифицирована' },
+            { value: '0', text: 'Очень низкий', tooltip: 'Нет информации' }
         ],
         defaultValue: '3',
     },
@@ -366,24 +408,19 @@ const initValues = [
 
         name: 'Уровень обеспечения качества компонентов',
         values: [
-            { value: '3', text: 'Высокий' },
-            { value: '2', text: 'Эквивалентный' },
-            { value: '1', text: 'Низкий' },
-            { value: '0', text: 'Очень низкий' }
-        ],
-        defaultValue: '3',
-    },
-
-    {
-        type: FieldTypes.SelectNumber,
-        id: 'raComponentBlock',
-
-        name: 'Уровень обеспечения качества производителя',
-        values: [
-            { value: '3', text: 'Очень надежный уровень А' },
-            { value: '2', text: 'Очень надежный уровень B' },
-            { value: '1', text: 'Надежный' },
-            { value: '0', text: 'Ненадежный' }
+            { value: '3', text: 'Высокий', tooltip: `Квалификация в соответствии с од-ним из следующих стандартов:
+                                                        AEC Q200, уровень S MIL-PRF-xxxx, уровень R MIL-PRF-xxxx,
+                                                        MIL-PRF-xxxx уровень D, MIL-PRF-уровень C, уровень ESCC 400x
+                                                        B, NASDA-QTS-xxxx, класс I` },
+            { value: '2', text: 'Эквивалентный', tooltip: `Квалификация в соответствии с од-ним из следующих стандартов:
+                                                            MIL-PRF-xxx уровень P, MIL-PRF-xxxx уровень B, ESCC 400x
+                                                            уровень C, NASDA-QTS-xxxx класс II с идентификацией
+                                                            производственные площадки по этим стандартам` },
+            { value: '1', text: 'Низкий', tooltip: `Квалификация в соответствии с од-ним из следующих утвержденных
+                                                    Стандарты CECC: MIL-PRF-xxxx уро-вень M или квалификация
+                                                    программа внутренняя для произво-дителя и неопознанная
+                                                    производственные площадки` },
+            { value: '0', text: 'Очень низкий', tooltip: 'Нет информации' }
         ],
         defaultValue: '3',
     },
@@ -392,12 +429,14 @@ const initValues = [
         type: FieldTypes.SelectNumber,
         id: 'zerBlock',
 
-        name: 'Уровень обеспечения качества производителя',
+        name: 'Коэффициент опыта',
         values: [
-            { value: '4', text: 'Признанный производитель: зрелые процессы' },
-            { value: '3', text: 'Признанный производитель: не созревшие процессы' },
-            { value: '2', text: 'Производитель не признан' },
-            { value: '1', text: 'Предыдущая дисквалификация ' }
+            { value: '4', text: 'Признанный производитель: зрелые процессы', tooltip: 'Признанный производитель: зрелые процессы для рассматриваемого элемента' },
+            { value: '3', text: 'Признанный производитель: не созревшие процессы', tooltip: `Признанный производитель - процессы,
+                                                                                                не проанализированные или не созревшие для рассматриваемой позиции` },
+            { value: '2', text: 'Производитель не признан', tooltip: `Производитель не признан (например, никогда не проверялся и не проверялся более 6 лет назад)
+                                                                        или производство небольших серий` },
+            { value: '1', text: 'Предыдущая дисквалификация', tooltip: 'Предыдущая дисквалификация или проблема с обратной связью от операций' }
         ],
         defaultValue: '4',
     },
@@ -2354,7 +2393,7 @@ const phaseDependentValues = [
         type: FieldTypes.PMarksBlock,
         id: 'applicationPMarksBlock',
 
-        name: 'Оценки параметров?',
+        name: 'Оценки параметров',
         elements: [{
             type: FieldTypes.SelectNumber,
         
@@ -2365,7 +2404,8 @@ const phaseDependentValues = [
                 { value: '10', text: 'Неблагоприятный' },
             ],
             defaultValue: '1',
-            payload: { pos: '20' }
+            payload: { pos: '20' },
+            tooltip: 'Представляет способность уважать процедуры, сталкивающиеся с эксплуатационными ограничениями'
         }, {
             type: FieldTypes.SelectNumber,
         
@@ -2376,7 +2416,8 @@ const phaseDependentValues = [
                 { value: '10', text: 'Неблагоприятный' },
             ],
             defaultValue: '1',
-            payload: { pos: '10' }
+            payload: { pos: '10' },
+            tooltip: 'Представляет уровень контроля пользователя или работника относительно операционного контекста'
         }, {
             type: FieldTypes.SelectNumber,
         
@@ -2387,7 +2428,8 @@ const phaseDependentValues = [
                 { value: '10', text: 'Тяжелый' },
             ],
             defaultValue: '1',
-            payload: { pos: '4' }
+            payload: { pos: '4' },
+            tooltip: 'Представляет непредвиденные обстоятельства, связанные с возможностями перемещаемой системы'
         }, {
             type: FieldTypes.SelectNumber,
         
@@ -2398,7 +2440,8 @@ const phaseDependentValues = [
                 { value: '10', text: 'Тяжелый' },
             ],
             defaultValue: '1',
-            payload: { pos: '15' }
+            payload: { pos: '15' },
+            tooltip: 'Представляет возможность ложных манипуляций, ударов, падений и т. д.'
         }, {
             type: FieldTypes.SelectNumber,
         
@@ -2409,7 +2452,8 @@ const phaseDependentValues = [
                 { value: '10', text: 'Тяжелый' },
             ],
             defaultValue: '1',
-            payload: { pos: '4' }
+            payload: { pos: '4' },
+            tooltip: 'Представляет ожидаемый уровень электрических помех в источниках питания, сигналах и электрических линиях: включение, переключение, подача питания, подключение / отключение'
         }, {
             type: FieldTypes.SelectNumber,
         
@@ -2420,7 +2464,8 @@ const phaseDependentValues = [
                 { value: '10', text: 'Тяжелый' },
             ],
             defaultValue: '1',
-            payload: { pos: '8' }
+            payload: { pos: '8' },
+            tooltip: 'Представляет подверженность непредвиденным обстоятельствам, связанным с деятельностью человека: шок, изменение в конечном использовании и т. д.'
         }, {
             type: FieldTypes.SelectNumber,
         
@@ -2431,7 +2476,8 @@ const phaseDependentValues = [
                 { value: '10', text: 'Тяжелый' },
             ],
             defaultValue: '1',
-            payload: { pos: '3' }
+            payload: { pos: '3' },
+            tooltip: 'Представляет непредвиденные обстоятельства, связанные с эксплуатацией машин, двигателей, приводов: удары, перегрев, электрические помехи, загрязняющие вещества и т. д.'
         }, {
             type: FieldTypes.SelectNumber,
         
@@ -2442,7 +2488,8 @@ const phaseDependentValues = [
                 { value: '10', text: 'Тяжелый' },
             ],
             defaultValue: '1',
-            payload: { pos: '2' }
+            payload: { pos: '2' },
+            tooltip: 'Представляет воздействие дождя, града, мороза, песчаной бури, молнии, пыли'
         }]
     }
 

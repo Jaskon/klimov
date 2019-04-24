@@ -1,29 +1,14 @@
-class InputNumberFieldWrapper {
-    // If dom is not passed - this.dom is the element from ui, got by id
-    // If dom is passed - this.dom is the passed dom
-    constructor(id, name, dom) {
+class InputFieldWrapper {
+    constructor(id, dom, input, name) {
         this.id = id;
-        this.dom = dom ? dom : document.getElementById(id);
-        this.input = this.dom.getElementsByTagName('input')[0];
+        this.dom = (dom ? dom : document.getElementById(id));
+        this.input = (input ? input : this.dom.getElementsByTagName('input')[0]);
         this.name = name;
-    }
-
-
-    getValue() {
-        return +(this.input.value);
     }
 }
 
 
-// <div id="someVariableBlock" class="form-group">
-//     <label>Some variable</label>
-//     <div class="input-group">
-//         <input class="form-control" data-input-type="number" pattern="^-?\d+(?:.\d+)?$">
-//     </div>
-// </div>
-
-
-class InputNumberField extends InputNumberFieldWrapper {
+class InputField extends InputFieldWrapper {
     constructor(id, name, defaultValue, placeholder, payload, parent) {
         // Generate template for field
 
@@ -49,14 +34,34 @@ class InputNumberField extends InputNumberFieldWrapper {
 
 
         if (payload) {
-            setDataAttributes(input, payload);
+            helpers.setDataAttributes(input, payload);
         }
 
 
-        super(id, name, block);
+        super(id, block, input, name);
 
         if (parent) {
             this.parent = parent;
         }
     }
 }
+
+
+class InputNumberField extends InputField {
+    
+    constructor(id, name, defaultValue, placeholder, payload, parent) {
+        super(id, name, defaultValue, placeholder, payload, parent);
+    }
+
+    getValue() {
+        return +(this.input.value);
+    }
+}
+
+
+// <div id="someVariableBlock" class="form-group">
+//     <label>Some variable</label>
+//     <div class="input-group">
+//         <input class="form-control" data-input-type="number" pattern="^-?\d+(?:.\d+)?$">
+//     </div>
+// </div>

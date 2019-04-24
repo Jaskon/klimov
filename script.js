@@ -3,13 +3,14 @@
 domsHolder = {
     phaseCountBlock: undefined,
 
-    oCapacitorBlock: undefined,
-    thElBlock: undefined,
-    sReferenceBlock: undefined,
-    eABlock: undefined,
-    yTCyBlock: undefined,
+    // oCapacitorBlock: undefined,
+    // thElBlock: undefined,
+    // sReferenceBlock: undefined,
+    // eABlock: undefined,
+    // yTCyBlock: undefined,
+    // yMechBlock: undefined,
+    componentTypeBlock: undefined,
     nAnnualCyBlock: undefined,
-    yMechBlock: undefined,
     placementBlock: undefined,
     ruggedisingBlock: undefined,
     sensitivityBlock: undefined,
@@ -46,7 +47,7 @@ let phasesCount = 0;
 
 
 window.addEventListener('load', () => {
-    domsHolder.phaseCountBlock = new InputNumberFieldWrapper('phaseCountBlock');
+    domsHolder.phaseCountBlock = new InputFieldWrapper('phaseCountBlock');
 
 
     domsHolder.phaseCountBlock.input.addEventListener('input', event => {
@@ -57,5 +58,5 @@ window.addEventListener('load', () => {
     // Generate html one-field template part from init_values.js
     initTemplateFromValues(initValues, domsHolder);
     // Generate first phase block template(s) (depends of phaseCountInput value, its default should be 1)
-    fireEvent(domsHolder.phaseCountBlock.input, 'input');
+    helpers.fireEvent(domsHolder.phaseCountBlock.input, 'input');
 });

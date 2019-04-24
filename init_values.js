@@ -2350,7 +2350,7 @@ const phaseDependentValues = [
         id: 'boardAmdBlock',
 
         name: 'Средняя температура платы во время фазы',
-        defaultValue: '1'
+        defaultValue: '50'
     },
 
     {
@@ -2366,7 +2366,7 @@ const phaseDependentValues = [
         id: 'tCyclingBlock',
 
         name: 'Амплитуда колебаний, связанных с циклической фазой',
-        defaultValue: '1'
+        defaultValue: '30'
     },
 
     {
@@ -2374,7 +2374,7 @@ const phaseDependentValues = [
         id: 'maxCyclingBlock',
 
         name: 'Максимальная температура платы во время фазы',
-        defaultValue: '1'
+        defaultValue: '75'
     },
 
     {

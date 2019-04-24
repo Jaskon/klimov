@@ -136,7 +136,7 @@ function calculate(v) {
 
 
     // All number fields should exist and should be numbers
-    if (!isNumber(nAnnualCy)) {      pushErr(errors, v.nAnnualCy.uiObj,      v.nAnnualCy.uiObj.name + ' должно быть числом')      }
+    if (!isNumber(nAnnualCy)) { pushErr(errors, v.nAnnualCy.uiObj,      v.nAnnualCy.uiObj.name + ' должно быть числом') }
     zipToObjs(v.tAnnualArr).forEach((one, i) => {
         if (!isNumber(one.value)) { pushErr(errors, one.uiObj, one.uiObj.name + ' фазы ' + (i+1) +  ' должна быть числом') }
     });
@@ -167,19 +167,43 @@ function calculate(v) {
         throw errors;
     }
 
-    // tAnnual > 0
+    // > 0
+    if (nAnnualCy <= 0) { pushErr(errors, nAnnualCy, v.nAnnualCy.uiObj) }
     zipToObjs(v.tAnnualArr).forEach((one, i) => {
         if (one.value <= 0) { pushErr(errors, one.uiObj, one.uiObj.name + ' ' + (i+1) + ' должна быть больше нуля') }
     });
-
+    zipToObjs(v.vRappliedArr).forEach((one, i) => {
+        if (one.value <= 0) { pushErr(errors, one.uiObj, one.uiObj.name + ' фазы ' + (i+1) + ' должно быть больше нуля') }
+    });
+    zipToObjs(v.tAnnualArr).forEach((one, i) => {
+        if (one.value <= 0) { pushErr(errors, one.uiObj, one.uiObj.name + ' фазы ' + (i+1) + ' должна быть больше нуля') }
+    });
     zipToObjs(v.vRatedArr).forEach((one, i) => {
-        if (one.value > 0) { pushErr(errors, one.uiObj, one.uiObj.name + ' фазы ' + (i+1) + ' должно быть больше нуля') }
+        if (one.value <= 0) { pushErr(errors, one.uiObj, one.uiObj.name + ' фазы ' + (i+1) + ' должно быть больше нуля') }
     });
+    zipToObjs(v.oCyArr).forEach((one, i) => {
+        if (one.value <= 0) { pushErr(errors, one.uiObj, one.uiObj.name + ' фазы ' + (i+1) + ' должна быть больше нуля') }
+    });
+    zipToObjs(v.gRMSArr).forEach((one, i) => {
+        if (one.value <= 0) { pushErr(errors, one.uiObj, one.uiObj.name + ' фазы ' + (i+1) + ' должна быть больше нуля') }
+    });
+
+    // Temperature
     zipToObjs(v.boardAmdArr).forEach((one, i) => {
-        if (one.value > 0) { pushErr(errors, one.uiObj, one.uiObj.name + ' фазы ' + (i+1) + ' должна быть больше нуля') }
+        if (one.value < -55 || one.value > 125) { pushErr(errors, one.uiObj, one.uiObj.name + ' фазы ' + (i+1) + ' должна быть между -55 и 180') }
     });
-    // TODO: All other > 0
-    // TODO: Temperatures - between
+    zipToObjs(v.tCyclingArr).forEach((one, i) => {
+        if (one.value > 180) { pushErr(errors, one.uiObj, one.uiObj.name + ' фазы ' + (i+1) + ' должна быть меньше 180') }
+    });
+    zipToObjs(v.maxCyclingArr).forEach((one, i) => {
+        if (one.value > 125) { pushErr(errors, one.uiObj, one.uiObj.name + ' фазы ' + (i+1) + ' должна быть меньше 125') }
+    });
+    zipToObjs(v.tCyclingArr).forEach((one, i) => {
+        if (one.value < -273) { pushErr(errors, one.uiObj, one.uiObj.name + ' фазы ' + (i+1) + ' не может быть меньше абсолютного нуля') }
+    });
+    zipToObjs(v.maxCyclingArr).forEach((one, i) => {
+        if (one.value < -273) { pushErr(errors, one.uiObj, one.uiObj.name + ' фазы ' + (i+1) + ' не может быть меньше абсолютного нуля') }
+    });
 
     // Throw exception with all the errors found
     if (errors.length > 0) {

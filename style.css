@@ -7,6 +7,17 @@
 }
 
 
+.header {
+    align-content: center;
+    align-items: center;
+    background-color: rgb(236, 244, 245);
+    border-bottom: 1px solid rgba(64, 113, 204, 0.589);
+    display: flex;
+    height: 80px;
+    justify-content: center;
+}
+
+
 .phase-count-block {
     max-width: 300px;
 }

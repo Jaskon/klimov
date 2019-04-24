@@ -129,6 +129,8 @@ function calcClickHandler() {
         errs.forEach((err) => {
             setFieldInvalid(err.uiObj);
         });
+
+        return;
     }
 
     // Show result

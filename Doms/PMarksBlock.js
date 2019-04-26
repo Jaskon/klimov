@@ -1,6 +1,6 @@
 class PMarksBlock {
 
-    constructor(id, name, elements) {
+    constructor(id, name, elements, tooltip) {
         this.inputs = [];
 
 
@@ -32,6 +32,15 @@ class PMarksBlock {
             this.inputs.push(field.input);
             body.appendChild(field.dom);
         });
+
+        // Tooltips
+        if (tooltip) {
+            $(header).tooltip({
+                title: tooltip,
+                placement: 'top',
+                boundary: 'window'
+            })
+        }
 
 
         this.dom = block;

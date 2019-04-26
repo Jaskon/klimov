@@ -77,7 +77,8 @@ const FieldTypes = {
 
         elements: [
             { Field without id (with payload: { pos: Number }) }
-        ]
+        ],
+        tooltip: String
     }
 */
 
@@ -472,6 +473,7 @@ const initValues = [
         id: 'specificationMarks',
 
         name: 'Рекомендации спецификации',
+        tooltip: 'Оценка рекомендаций для фактора процесса',
         elements: [{
             type: FieldTypes.SelectNumber,
         
@@ -610,6 +612,7 @@ const initValues = [
         id: 'designMarks',
 
         name: 'Рекомендации дизайна',
+        tooltip: 'Оценка рекомендаций для фактора процесса',
         elements: [{
             type: FieldTypes.SelectNumber,
         
@@ -839,6 +842,7 @@ const initValues = [
         id: 'manufactAsemblMarks',
 
         name: 'Изготовление щита или сборочного узла',
+        tooltip: 'Оценка рекомендаций для фактора процесса',
         elements: [{
             type: FieldTypes.SelectNumber,
         
@@ -1229,6 +1233,7 @@ const initValues = [
         id: 'integrEquipMarks',
 
         name: 'Интеграция в оборудование',
+        tooltip: 'Оценка рекомендаций для фактора процесса',
         elements: [{
             type: FieldTypes.SelectNumber,
         
@@ -1619,6 +1624,7 @@ const initValues = [
         id: 'integrSystetMarks',
 
         name: 'Интеграция в систему',
+        tooltip: 'Оценка рекомендаций для фактора процесса',
         elements: [{
             type: FieldTypes.SelectNumber,
         
@@ -1883,6 +1889,7 @@ const initValues = [
         id: 'exploitationMarks',
 
         name: 'Эксплуатация и обслуживание',
+        tooltip: 'Оценка рекомендаций для фактора процесса',
         elements: [{
             type: FieldTypes.SelectNumber,
         
@@ -2098,6 +2105,7 @@ const initValues = [
         id: 'advancedMarks',
 
         name: 'Вспомогательные мероприятия',
+        tooltip: 'Оценка рекомендаций для фактора процесса',
         elements: [{
             type: FieldTypes.SelectNumber,
         

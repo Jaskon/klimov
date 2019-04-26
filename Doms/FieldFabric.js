@@ -12,6 +12,6 @@ function generateField(obj, idPostfix, parent) {
             return new SelectJsonField(id, obj.name, obj.values, obj.defaultValue, obj.payload, obj.tooltip, parent);
 
         case FieldTypes.PMarksBlock:
-            return new PMarksBlock(id, obj.name, obj.elements);
+            return new PMarksBlock(id, obj.name, obj.elements, obj.tooltip);
     }
 }
